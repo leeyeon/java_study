@@ -1,0 +1,19 @@
+package m09.day28;
+
+public class Prob {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println("문자열에 특정 문자를 변경하는 테스트");
+		System.out.println("---------Sample1--------");
+		String str1 = Prob.myReplace("hello world","l","*");
+	}
+	
+	public static String myReplace(String str, char oldChar, char newChar) {
+		
+		
+		
+		return null;
+	}
+
+}

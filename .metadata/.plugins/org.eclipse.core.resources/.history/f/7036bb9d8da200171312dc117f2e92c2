@@ -1,0 +1,8 @@
+package jp09;
+
+public class Snippet {
+	public static void main(String[] args) {
+		package T0926;
+	}
+}
+

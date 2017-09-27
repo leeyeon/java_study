@@ -1,0 +1,31 @@
+package m09.day28;
+
+public class CellPhone {
+	
+	private String model;
+	private double battery;
+
+	public CellPhone() {
+	}
+	
+	public CellPhone(String model) {
+		
+	}
+	
+	public void call(int time) {
+		
+	}
+	
+	public void chare(int time) {
+		
+	}
+	
+	public void printBattery() {
+		
+	}
+	
+	public boolean equals(Object otherObject) {
+		
+	}
+
+}
