@@ -1,0 +1,22 @@
+package m09.day29;
+
+public class FileController {
+
+	public void reverseLine(String oldf, String newf) throws Exception {
+		
+		try {
+			
+		} catch(Exception e) {
+			
+		}
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		FileController c = new FileController();
+		String oldf = "files/oldf.txt";
+		String newf = "files/newf.txt";
+		c.reverseLine(oldf, newf);
+		
+	}
+
+}

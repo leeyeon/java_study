@@ -1,0 +1,25 @@
+package m09.day29;
+
+import java.io.*;
+
+public class Grade {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+			Grade grade = new Grade();
+			String fileName ="score.txt";
+			grade.printGrade(fileName);
+	}
+	
+	public void printGrade(String fileName) {
+		
+		BufferedReader br = null;
+		
+		br = new BufferedReader(new FileReader(fileName));
+		
+		
+		br.close();
+		
+	}
+
+}

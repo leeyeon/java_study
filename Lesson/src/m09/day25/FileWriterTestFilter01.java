@@ -20,7 +20,7 @@ public class FileWriterTestFilter01
 		br = new BufferedReader( new FileReader( fileName ) );
 
 		//==> 사본파일 이름 만들기
-		copyFileName = fileName+"_copy1";
+		copyFileName = fileName+"_copy";
 
 		//==> Data를 write 할 수 있는 BufferedWriter 생성
 		 bw = new BufferedWriter ( new FileWriter(copyFileName) );
@@ -28,7 +28,8 @@ public class FileWriterTestFilter01
 		 // read / writer 하는 while문
 		 String source = null;
 		 while( (source = br.readLine()) != null){
-			 bw.write(source+"\n");
+			 bw.write(source);
+			 bw.newLine();
 			 readCount++;
 		 }
 		 bw.flush();

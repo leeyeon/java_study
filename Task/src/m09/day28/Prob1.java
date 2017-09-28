@@ -19,12 +19,23 @@ public class Prob1 {
 	
 	private static String getParameter(String url, String paramName) {
 		
+		String[] spl = url.split("\\?|\\&|\\=");
+		
+		for(int i=1; i<spl.length; i++) {
+			if(paramName.equals(spl[i])) {
+				return spl[i+1];
+			}
+		}
+		
+		return "error";
+
+		/*
+		//?이후값 tempUrl 에 저장 => data
 		ArrayList<String> pashing = new ArrayList<String>();
 		String tempUrl = "";
 		String checkParam = "";
 		String result = "";
 		
-		//?이후값 tempUrl 에 저장 => data
 		for(int i=0; i<url.length(); i++) {
 			char ch = url.charAt(i);
 			if(ch=='?') {
@@ -56,8 +67,10 @@ public class Prob1 {
 			else
 				result = "error";
 		}
-		
 		return result;
+		*/
+		
+		
 	}
 
 }

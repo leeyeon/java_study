@@ -1,0 +1,8 @@
+package m09.day28;
+
+public class Snippet {
+	for(int i=1;i<100;i++){
+				System.out.println(name+" : "+i+"*"+9+"="+i*9);
+			}
+}
+

@@ -1,0 +1,28 @@
+package m09.day29;
+
+import java.io.*;
+
+public class FileController {
+
+	public void reverseLine(String oldf, String newf) throws Exception {
+		
+		BufferedReader br;
+		BufferedWriter bw;
+		
+		br = new BufferedReader(new InputStreamReader(System.in));
+		try {
+			
+		} catch(Exception e) {
+			
+		}
+	}
+	public static void main(String[] args) throws Exception {
+		// TODO Auto-generated method stub
+		FileController c = new FileController();
+		String oldf = "files/oldf.txt";
+		String newf = "files/newf.txt";
+		c.reverseLine(oldf, newf);
+		
+	}
+
+}

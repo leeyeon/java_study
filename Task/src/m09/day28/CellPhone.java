@@ -40,8 +40,9 @@ public class CellPhone {
 	
 	public boolean equals(Object otherObject) {
 		
-		//객체 같은지?
-		if(getClass().isInstance(otherObject)) {
+		if(otherObject == null) {
+			return false;
+		} else if(otherObject instanceof CellPhone) { //객체 같은지?
 			//값 같은지?
 			if(getModel().equals(((CellPhone)otherObject).getModel()))
 				return true;
