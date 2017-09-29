@@ -2,12 +2,15 @@ package m09.day29;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
 
 public class FileController {
 
 	public void reverseLine(String oldf, String newf) throws Exception {
 		
-		ArrayList<String> arr = new ArrayList<String>();
+		//List<String> arr = new ArrayList<String>();
+		Stack<String> stack = new Stack<String>();
 		BufferedReader br;
 		BufferedWriter bw;
 		
@@ -16,15 +19,11 @@ public class FileController {
 		
 		String source = "";
 		while ( (source = br.readLine()) != null) {
-			arr.add(source);
+			stack.push(source);
 		}
 		
-		for(int i = arr.size()-1; i>=0; i--) {
-			bw.write(arr.get(i));
-			
-			if(i>0) bw.newLine();
-			if(i==arr.size()-1) System.out.println("성공");
-
+		while(!(stack.isEmpty())) {
+			bw.write(stack.pop()+"\n");
 		}
 		
 		//보내깅
@@ -37,7 +36,7 @@ public class FileController {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		FileController c = new FileController();
-		String oldf = "files/oldf.txt";
+		String oldf = "files/oldf.txt"; //상대경로
 		String newf = "files/newf.txt";
 		c.reverseLine(oldf, newf);
 		

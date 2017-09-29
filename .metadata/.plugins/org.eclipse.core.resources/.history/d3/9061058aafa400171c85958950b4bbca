@@ -1,0 +1,14 @@
+package m10.day10;
+
+public class Score {
+	
+	private String name;
+	private int kor;
+	private int eng;
+	private int math;
+	private int sum;
+
+	public Score() {
+	}
+
+}

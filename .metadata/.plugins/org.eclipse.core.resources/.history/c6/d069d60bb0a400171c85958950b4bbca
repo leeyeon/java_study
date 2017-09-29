@@ -1,0 +1,23 @@
+package m10.day10;
+
+import java.util.Vector;
+
+public class Prob {
+	
+	
+	public Vector getScore(String fileName) {
+		
+		return null;
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Prob p2 = new Prob();
+		Vector scores = p2.getScore("src/data.txt");
+		for(int i=0; i<scores.size(); i++) {
+	
+		}
+		
+	}
+
+}

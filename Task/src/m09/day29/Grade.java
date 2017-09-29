@@ -18,7 +18,7 @@ public class Grade {
 		int sum = 0;
 
 		try {
-			br = new BufferedReader(new FileReader("./"+fileName));
+			br = new BufferedReader(new FileReader(fileName));
 			String source = "";
 			while ( (source = br.readLine()) != null) {
 				String[] pashing = source.split(",");

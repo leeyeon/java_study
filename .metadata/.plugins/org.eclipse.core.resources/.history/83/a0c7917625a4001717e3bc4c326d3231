@@ -1,0 +1,25 @@
+package test;
+
+public class TheaterReservationSystem {
+
+	private boolean[] ticket = {true, true, true};
+	
+	public TheaterReservationSystem() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public synchronized boolean getTicket(ReservationShop rs) throws Exception {
+		
+		for(int i=0; i<ticket.length; i++) {
+			if(ticket[i]) {
+				ticket[i] = false;
+				
+				return !(ticket[i]);
+			}
+		}
+		
+		//좌석 없으면
+		throw new Exception("영화표가 없습니다.");
+	}
+
+}
