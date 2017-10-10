@@ -34,7 +34,7 @@
 		<item value="157" key="DIALOG_Y_ORIGIN"/>
 	</section>
 	<section name="NewClassWizardPage">
-		<item value="true" key="create_constructor"/>
+		<item value="false" key="create_constructor"/>
 		<item value="false" key="create_unimplemented"/>
 	</section>
 	<section name="OptionalMessageDialog.hide.">

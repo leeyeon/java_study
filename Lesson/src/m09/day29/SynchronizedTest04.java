@@ -1,4 +1,4 @@
-//package m09.day29;
+package m09.day29;
 
 /*
  * 	FileName : SynchronizedTest04.java

@@ -1,0 +1,30 @@
+package m10.day11;
+
+import java.io.File;
+
+public class Dir {
+	
+	private void printDir(String str) {
+		File file = new File(str);
+		String[] fileList = file.list();
+		
+		System.out.println(file.getName());
+		
+		for(int i=0; i<fileList.length; i++) {
+			System.out.println(file.getPath()+": "+fileList.length);
+			File isfile = new File(fileList[i]);
+			System.out.println(isfile.getName());
+			if(isfile.isDirectory()) {
+				printDir(isfile.getName());
+			}
+			//printDir(str+"/");
+		}
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		new Dir().printDir("test_dir");
+		System.out.println("출력이 완료되었습니다");
+	}
+
+}

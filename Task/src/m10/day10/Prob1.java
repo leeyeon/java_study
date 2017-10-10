@@ -4,7 +4,7 @@ import java.util.Vector;
 
 public class Prob1 {
 	
-	private static Book makeBook(String bookData) throws DataFormatException {
+	private static Book makeBook(String bookData) {
 		
 		String[] pashing = bookData.split(":");
 		

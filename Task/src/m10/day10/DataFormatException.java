@@ -1,6 +1,6 @@
 package m10.day10;
 
-public class DataFormatException extends Exception {
+public class DataFormatException extends RuntimeException {
 
 	String title;
 	

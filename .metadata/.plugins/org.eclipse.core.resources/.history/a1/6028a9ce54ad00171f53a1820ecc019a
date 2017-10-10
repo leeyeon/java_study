@@ -1,0 +1,34 @@
+package m10.day11;
+
+import java.util.Random;
+
+public class Prob2 {
+	
+	private static int[] generateRandomNumber() {
+		
+		int[] array = new int[10];
+		
+		for(int i=0; i<array.length; i++) {
+			array[i] = new Random().nextInt()%20;
+		}
+		
+		return array;
+	}
+	
+	public static void printStatistics(int[] array) {
+		
+		for(int i=0; i<array.length; i++) {
+			System.out.println(array[i]);
+			
+		}
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		int[] array = generateRandomNumber();
+		printStatistics(array);
+
+	}
+
+}

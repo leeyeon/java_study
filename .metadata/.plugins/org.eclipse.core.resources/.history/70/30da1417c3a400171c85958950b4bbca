@@ -1,9 +1,0 @@
-package m10.day10;
-
-public class Book {
-
-	public Book() {
-		// TODO Auto-generated constructor stub
-	}
-
-}

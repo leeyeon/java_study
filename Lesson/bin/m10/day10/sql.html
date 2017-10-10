@@ -1,0 +1,78 @@
+///////////////////////////////////////////////
+1. DDL :: CREATE : TABLE 생성
+///////////////////////////////////////////////
+
+
+CREATE TABE emp_test (
+ id NUMBER(3),
+ name VARCHAR2(15),
+ salary NUMBER(7,2),
+ title VARCHAR2(15) default '사원',
+ in_date date default sysdate,
+ dept_name VARCHAR2(15)
+);
+
+///////////////////////////////////////////////
+2. 테이블 생성 확인 / Table Record 조회 (DESCRIBE / SELECT)
+
+DESC emp_test;
+
+DESCRIBE emp_test;
+
+SELECT * FROM emp_test;
+
+///////////////////////////////////////////////
+3. TEST용 TABLE만들기
+==> 1개 이상의 COLUMN을 갖는다.
+
+CREATE TABLE test_table(
+
+);
+
+///////////////////////////////////////////////
+4. DDL :: DROP : TABLE 삭제
+///////////////////////////////////////////////
+CREATE TABLE test_table (
+ no NUMBER(10),
+ contents VARCHAR2(10)
+);
+
+DESC test_table;
+
+SELECT * FROM test_table;
+
+DROP TABLE test_table;
+
+DESC test_table;
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////
+1. DML :: INSERT : TABLE RECORD 입력
+///////////////////////////////////////////////
+DATE 표현 방식 : SYSDATE :: current time 을 나타내는 SQL KEYWORD
+SELECT SYSDATE FROM DUAL;
+///////////////////////////////////////////////
+DUAL : 출력을 위한 가상(?) TABLE
+
+SELECT 9*9 FROM DUAL;
+SELECT USER FROM DUAL;
+
+///////////////////////////////////////////////
+TABLE의 모든 COLUMN VALUE 입력
+
+INSERT
+INTO emp_test(id, name, salary, title, in_date, dept_name)
+VALUES (1, '김사장', 100, '사장', '04-07-19', '개발부');
+
+SELECT * FROM emp_test;
+
+
+

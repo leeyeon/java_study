@@ -1,9 +1,0 @@
-package test;
-
-public class TheaterReservationSystem {
-
-	public TheaterReservationSystem() {
-		// TODO Auto-generated constructor stub
-	}
-
-}

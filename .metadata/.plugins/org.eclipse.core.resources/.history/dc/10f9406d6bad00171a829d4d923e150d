@@ -1,0 +1,15 @@
+package m10.day11;
+
+public class Dir {
+	
+	private void printDir(String str) {
+		
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		new Dir().printDir("test_dir");
+		System.out.println("출력이 완료되었습니다");
+	}
+
+}

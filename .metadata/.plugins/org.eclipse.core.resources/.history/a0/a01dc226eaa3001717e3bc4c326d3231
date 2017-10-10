@@ -1,9 +1,0 @@
-package m09.day29;
-
-public class Account {
-
-	public Account() {
-		// TODO Auto-generated constructor stub
-	}
-
-}
