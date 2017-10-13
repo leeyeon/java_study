@@ -1,0 +1,49 @@
+public class Prob2 
+{
+	public static void main(String[] args) 
+	{
+		int largest = 0;
+		int smallest = 10000;
+		int sum = 0;
+		double average = 0.0;
+
+		int[] array = new int[args.length];
+
+		for(int i=0; i<args.length; i++) {
+			// 파싱 & 배열에 저장
+			array[i] = Integer.parseInt(args[i]);
+
+			// 유효성 체크
+			if ((array[i] < 0) && (array[i] > 9999))
+			{
+				System.out.println("0 ~ 9999 사이의 정수를 입력하세요.");
+				return;
+			}
+		}
+
+		for(int i=0; i<args.length; i++) {
+			System.out.print(array[i]+", ");
+			
+			// 합
+			sum += array[i];
+			
+			// 최대값, 최소값
+			if(i == 0) {
+				smallest = largest = array[0];
+			} else {
+				if(smallest > array[i])
+					smallest = array[i];
+				if(largest < array[i])
+					largest = array[i];
+			}
+		}
+
+		average = (double) sum / args.length;
+
+		System.out.println("\n==============================");
+		System.out.println("the largest value = "+largest);
+		System.out.println("the smallest value = "+smallest);
+		System.out.println("the total value = "+sum);
+		System.out.println("and the average is = "+average);
+	}
+}

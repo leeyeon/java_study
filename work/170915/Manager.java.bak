@@ -1,0 +1,52 @@
+//package jb04.part03;
+
+public class Manager extends Employee  
+{
+	int salary;
+
+	public Manager()
+	{
+		System.out.println("Manager의 default Construtor");
+	}
+
+	public Manager(String str)
+	{
+		super(str);
+		System.out.println("Manager의 name을 받는 Construtor");
+	}
+
+	public Manager(String str1, String str2)
+	{	
+		this(str1);
+		part = str2;
+		System.out.println("Manager의 name,part을 받는 Construtor");
+	}
+
+	public Manager(String str1, String str2,int i)
+	{	
+		this(str1,str2);
+		age = i;
+		System.out.println("Manager의 name,part,age을 받는 Construtor");
+	}
+
+	public Manager(String str1, String str2,int i, int j)
+	{	
+		this(str1,str2,i);
+		salary = j;
+		System.out.println("Manager의 name,part,age,salary을 받는 Construtor");
+	}
+	public void callSalary() 
+	{
+		System.out.println("Manager의 기본급은 : "+salary());
+
+	}
+
+	public static void main (String args[])
+	{
+	
+		//Manager m1 = new Manager("홍길동");
+
+		Manager m1 = new Manager("홍길동","EJB",25,300);
+
+	}
+}

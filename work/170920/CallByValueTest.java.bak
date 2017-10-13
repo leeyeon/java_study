@@ -1,0 +1,10 @@
+//Package jp01.part02;
+
+public class CallByValueTest
+{
+	public static void main(String[] args) 
+	{
+
+
+	}
+}

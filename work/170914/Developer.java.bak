@@ -1,0 +1,25 @@
+public class Developer 
+{
+	String name = "홍길동";
+	String job = "개발자";
+	static int avgIncome = 100;
+	static int projectCareer = 0;
+
+	public static void main(String[] args) 
+	{
+		participateProject();
+		System.out.println(avgIncome);
+	}
+
+	public static void participateProject() {
+		System.out.println("프로그램 개발로 수입 증가, 경력 쌓음");
+		avgIncome++;
+		projectCareer++;
+	}
+
+	public static void instruct() {
+		System.out.println("강의를 통한 수입 증가");
+		avgIncome++;
+	}
+
+}

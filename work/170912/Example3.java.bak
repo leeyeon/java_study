@@ -1,0 +1,28 @@
+public class Example3 
+{
+	public static void main(String[] args) 
+	{
+		int i = Integer.parseInt(args[0]);
+		int j = Integer.parseInt(args[1]); //입력받기
+		int sum = 0;
+		int temp;
+
+		if( i == j ) {
+			System.out.println("입력한 값이 같습니다.");
+			return;
+		}
+
+		if( i > j ) {
+			temp = i;
+			i = j;
+			j = temp; // 순서 바꾸기
+		}
+
+		for(int k = i ; k <= j; k++ ) {
+			sum = sum + k;
+		}
+		
+		System.out.println(i+" ~ "+j+"의 합은 "+sum+"입니다.");
+		System.out.println(i+ (i+1)*j);
+	}
+}
