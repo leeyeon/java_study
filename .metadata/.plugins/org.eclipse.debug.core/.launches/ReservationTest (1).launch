@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/Lesson/src/test/ReservationTest.java"/>
+<listEntry value="/Lesson/src/m09/day29/ReservationTest.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>
 </listAttribute>
-<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="test.ReservationTest"/>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="m09.day29.ReservationTest"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="Lesson"/>
 </launchConfiguration>

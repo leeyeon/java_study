@@ -1,0 +1,356 @@
+//========================================================//
+//==> JOIN : 하나 이상의 테이블로 부터 연관된 Data 조회
+	  4가지 경우 : EQUI JOIN / NON-EQUI JOIN / SELF JOIN / OUTER JOIN
+
+
+
+//========================================================//
+//==> 1. EQUI JOIN :  PK 와 FK로 관계의 무결성 보장 필요
+
+//==> c_emp table 생성
+CREATE TABLE c_emp(
+	id	 NUMBER(5)	 CONSTRAINT	 c_emp_id_pk		 PRIMARY KEY,
+	name	 CHAR(15)	 CONSTRAINT	 c_emp_name_nn		 NOT NULL,
+	salary	 NUMBER(7,2),
+	phone	 CHAR(15)	 CONSTRAINT	 c_emp_phone_ch		 CHECK(phone LIKE '3429-%'),
+	dept_id	 NUMBER(7)	 CONSTRAINT	 c_emp_s_dept_id_fk	 REFERENCES   s_dept( id )
+);
+
+==> c_emp table  생성시 ERROR 발생 ???
+
+
+//==> s_dept table 생성
+CREATE TABLE s_dept(
+	id		 NUMBER(7)	 CONSTRAINT    s_dept_id_pk	 PRIMARY KEY,
+	dept_name	 VARCHAR2(12)	 CONSTRAINT    c_dept_name_uk	 UNIQUE
+);
+
+
+==> RECORD 입력
+INSERT INTO c_emp VALUES(101,'김사장',1000,'3429-0001',1);
+
+//==> ERROR 발생 ???
+
+
+DELETE FROM s_dept;
+
+INSERT INTO s_dept VALUES (1,'총무부');
+INSERT INTO s_dept VALUES (2,'개발부');
+INSERT INTO s_dept VALUES (3,'영업부');
+INSERT INTO s_dept VALUES (4,'인사부');
+INSERT INTO s_dept VALUES (5,'자재부');
+INSERT INTO s_dept VALUES (6,'회계부');
+
+COMMIT;
+
+
+DELETE FROM c_emp;
+
+INSERT INTO c_emp VALUES(101,'김사장',1000,'3429-0001',1);
+INSERT INTO c_emp VALUES(102,'홍길동',2000,'3429-0002',1);
+INSERT INTO c_emp VALUES(103,'홍길순',3000,'3429-0003',1);
+INSERT INTO c_emp VALUES(104,'이순신',4000,'3429-0004',2);
+INSERT INTO c_emp VALUES(105,'강감찬',5000,'3429-0005',2);
+INSERT INTO c_emp VALUES(106,'류시원',1100,'3429-0006',2);
+INSERT INTO c_emp VALUES(107,'이문세',1200,'3429-0007',3);
+INSERT INTO c_emp VALUES(108,'강호동',1300,'3429-0008',3);
+INSERT INTO c_emp VALUES(109,'강문영',1400,'3429-0009',3);
+INSERT INTO c_emp VALUES(110,'추현재',1500,'3429-0010',4);
+INSERT INTO c_emp VALUES(111,'박상민',2500,'3429-0011',4);
+INSERT INTO c_emp VALUES(112,'박상면',3500,'3429-0012',4);
+INSERT INTO c_emp VALUES(113,'유재석',4500,'3429-0013',5);
+INSERT INTO c_emp VALUES(114,'노무현',5500,'3429-0014',5);
+INSERT INTO c_emp VALUES(115,'전두환',1000,'3429-0015',5);
+INSERT INTO c_emp VALUES(116,'김일성',2000,'3429-0016',6);
+INSERT INTO c_emp VALUES(117,'김정일',3000,'3429-0017',6);
+
+COMMIT;
+
+------------------------------------------------------
+
+===============>>>>>>>>>>>>>> Cartesian product(카테션 곱)
+===============>>>>>>>>>>>>>>  : 테이블 모든 행이 다른 테이블의 모든 행과 연결
+
+SELECT
+c_emp.name, c_emp.dept_id, s_dept.id, s_dept.dept_name
+FROM c_emp, s_dept;
+
+
+===============>>>>>>>>>>>>>> 문제 해결
+===============>>>>>>>>>>>>>> EQUI JOIN
+===============>>>>>>>>>>>>>> : WHERE c_emp.dept_id = s_dept.id
+
+
+SELECT
+c_emp.name, c_emp.dept_id, s_dept.id, s_dept.dept_name
+FROM c_emp, s_dept
+WHERE c_emp.dept_id = s_dept.id;
+
+SELECT
+c_emp.name, c_emp.dept_id, s_dept.id, s_dept.dept_name
+FROM c_emp, s_dept
+WHERE c_emp.dept_id = s_dept.id
+	  AND s_dept.dept_name = '총무부';
+	  /* s_dept.dept_name IN('총무부') */
+
+------------------------------------------------------
+
+SELECT
+c.name, c.dept_id, s.id, s.dept_name
+FROM c_emp c, s_dept s
+WHERE c.dept_id = s.id
+	  AND s.dept_name IN('총무부');
+
+
+
+------------------------------------------------------
+//==============================================//
+//================== 실   습 1  ====================//
+//==============================================//
+
+1.  김씨성 직원의  이름 / 부서명 /연봉  조회
+     ==> 연봉:  \250,000 형식 , 연봉높은순 
+
+     SELECT
+     c.name 이름, s.dept_name 부서명, TO_CHAR((c.salary*12),'L999,999') 연봉
+     FROM c_emp C, s_dept S
+     WHERE S.id = C.dept_id AND c.name LIKE '김%'
+	 order by c.salary DESC;
+			
+
+2.  월급이 2000이상 직원 부서명 / 이름 /일당 조회
+      ==> 부서별 :: 오름차순
+      ==> 이    름 :: 오름차순
+      ==> 일    당 :: 30일기준, 소수점 0자리 버림, \250,000형식, 높은순
+
+	  SELECT
+	  s.dept_name 부서명, c.name 이름, TO_CHAR(TRUNC(c.salary/30,0), 'L999,999') 일당
+	  FROM c_emp c, s_dept s
+	  WHERE c.dept_id = s.id AND salary >= 2000
+	  order by s.dept_name , c.name , c.salary DESC;
+	  /* order by 1,2,3 DESC; */
+
+
+3. 부서별 평균 월급  부서번호/부서명/평균월급 조회
+     ==> 부서번호 :: 오름차순
+
+	 SELECT
+	 c.dept_id 부서번호, s.dept_name 부서명, AVG(c.salary) 평균월급
+	 FROM c_emp c, s_dept s
+	 WHERE c.dept_id = s.id
+	 GROUP BY c.dept_id, s.dept_name
+	 ORDER BY c.dept_id;
+
+
+4. 총무부 평균 월급  부서번호/부서명/평균월급 조회
+
+	 SELECT
+	 c.dept_id 부서번호, s.dept_name 부서명, AVG(c.salary) 평균월급
+	 FROM c_emp c, s_dept s
+	 WHERE c.dept_id = s.id AND s.dept_name IN('총무부')
+	 GROUP BY c.dept_id, s.dept_name;
+
+
+
+
+------------------------------------------------------
+//========================================================//
+//==> JOIN : 하나 이상의 테이블로 부터 연관된 Data 조회
+	  4가지 경우 : EQUI JOIN / NON-EQUI JOIN / SELF JOIN / OUTER JOIN
+
+
+
+//========================================================//
+//==> 1. NON-EQUIJOIN 
+	=> EQUI JOIN 은 = 연산자를 사용
+	=> NON-EQUI JOIN 은 =연산자를 제외한 비교 연산자 사용
+
+
+//==> sal_grade TABLE 생성
+CREATE TABLE sal_grade(
+	grade	 CHAR(1)	 CONSTRAINT salgrade_grade_nn	 NOT NULL,
+	losal	 NUMBER(4)	 CONSTRAINT salgrade_losal_uq	 UNIQUE,
+	hisal	 NUMBER(4)	 CONSTRAINT salgrade_hisal_uq	 UNIQUE
+);
+
+
+//==> RECORD 입력
+
+INSERT INTO sal_grade VALUES('A',4000,5999);
+INSERT INTO sal_grade VALUES('B',3000,3999);
+INSERT INTO sal_grade VALUES('C',2000,2999);
+INSERT INTO sal_grade VALUES('D',1000,1999);
+INSERT INTO sal_grade VALUES('E',500,999);
+
+COMMIT;
+
+SELECT * FROM sal_grade;
+
+
+SELECT
+c.name 이름, c.salary 월급, sg.grade 월급등급
+FROM c_emp c, sal_grade sg
+WHERE c.salary BETWEEN sg.losal AND sg.hisal;
+
+
+
+
+
+//==============================================//
+//================== 실   습 1  ====================//
+//==============================================//
+
+1. 개발부 직원과 영업부직원 이름 , 월급 , 월급등급 , 부서명 조회
+    => 등급 높은순  ( NON-EQUI JOIN /  EQUI JOIN 같이 사용)
+
+	SELECT
+	c.name 이름, c.salary 월급, sg.grade 월급등급, s.dept_name 부서명
+	FROM c_emp c, s_dept s, sal_grade sg
+	WHERE c.dept_id = s.id
+		  AND c.salary BETWEEN sg.losal AND sg.hisal
+		  AND s.dept_name IN ('개발부','영업부')
+	ORDER BY sg.grade;
+
+2. sal_grade가 A  인원이 2명이상인 부서명 , 인원수 , 등급 
+     ( NON-EQUI JOIN /  EQUI JOIN 같이 사용)
+
+	/* COUNT(c.name) COUNT(*) */
+
+	SELECT
+	s.dept_name 부서명, COUNT(c.name) 인원수, sg.grade 등급
+	FROM c_emp c, s_dept s, sal_grade sg
+	WHERE c.dept_id = s.id
+		  AND c.salary BETWEEN sg.losal AND sg.hisal
+		  AND sg.grade IN('A')
+	GROUP BY s.dept_name, sg.grade
+	HAVING COUNT(c.name) >= 2;
+
+
+
+//==============================================//
+//==> 부서 배치 전  신입 사원 2명 RECORD 입력
+//==============================================//
+
+//==> FROEGIN KEY 제약조건 : 다른 TABLE PK or NULL 입력
+
+INSERT INTO c_emp VALUES(201,'신입1',1500,'3429-0100',null);
+INSERT INTO c_emp VALUES(202,'신입2',1500,'3429-0200',null);
+
+COMMIT;
+
+SELECT * FROM c_emp ; 
+
+
+
+------------------------------------------------------
+//==> OUTER JOIN :: (+) 표시
+
+/* c.dept_id 가 null 이여도 나머지 다 (+) 해줘~! */
+SELECT
+c.name 이름, s.dept_name 부서명
+FROM c_emp c, s_dept s
+WHERE c.dept_id = s.id(+);
+
+
+
+------------------------------------------------------
+Scott_create.sql 집어넣고
+------------------------------------------------------
+
+SELECT
+e1.empno 사번, e1.ename 이름, e1.mgr 관리자사번, e2.ename 관리자이름
+FROM emp e1, emp e2
+WHERE e1.mgr = e2.empno
+ORDER BY e1.empno;
+
+
+SELECT
+e1.empno 사번, e1.ename 이름, e1.mgr 관리자사번, e2.ename 관리자이름
+FROM emp e1, emp e2
+WHERE e1.mgr = e2.empno(+)
+ORDER BY e1.empno;
+
+
+------------------------------------------------------
+===============>>>>>>>>>>>>>> Sub Query
+
+
+SELECT
+dept_id, id, name
+FROM c_emp
+WHERE dept_id IN ( SELECT
+				  dept_id
+				  FROM c_emp
+				  WHERE name IN('이순신'));
+
+
+
+
+SELECT
+id 사번, name 이름, salary 급여
+FROM c_emp
+WHERE salary < ( SELECT
+				 AVG(salary)
+				 FROM c_emp );
+
+------------------------------------------------------
+
+SELECT
+name 이름, dept_id 부서아이디
+FROM c_emp
+WHERE dept_id IN ( SELECT
+				   id
+				   FROM s_dept
+				   WHERE dept_name IN ('총무부', '영업부') );
+
+====>>>>>>>>> = 는 단일행일 때... IN은 값이 여러개일 때
+
+
+------------------------------------------------------
+=> 쓰레기값 나옴..
+SELECT
+name, salary, dept_id
+FROM c_emp
+WHERE salary IN (SELECT
+				 MIN(salary)
+				 FROM c_emp
+				 GROUP BY dept_id);
+
+=> 확인
+SELECT MIN(salary), dept_id FROM c_emp GROUP BY dept_id ;
+
+
+=> multi column subquery!
+SELECT
+name, salary, dept_id
+FROM c_emp
+WHERE (salary, dept_id) IN (SELECT
+							MIN(salary), dept_id
+							FROM c_emp
+							GROUP BY dept_id);
+
+
+							
+------------------------------------------------------
+===============>>>>>>>>>>>>>> INLINE VIEW
+SELECT
+c.name, c.salary, c.dept_id
+FROM c_emp c, (SELECT
+				MIN(salary) min, dept_id
+				FROM c_emp
+				GROUP BY dept_id) vt
+WHERE c.dept_id = vt.dept_id
+		AND c.salary = vt.min;
+
+
+
+------------------------------------------------------
+//==============================================//
+//================== 실   습 1  ====================//
+//==============================================//
+
+1.이순신과 같은 부서에 근무하는 직원  이름 ,부서명 조회
+
+2. 전체평균금액 보다 낮은 급여를 받는직원  이름 , 부서명 ,급여 , 급여등급 조회
+
+3. 홍길동과 월급등급이 같은 직원   이름, 부서명 , 월급 ,월급등급  조회

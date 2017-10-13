@@ -1,0 +1,24 @@
+package m10.day12;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.Vector;
+
+public class FileUtil {
+	public static void fileToPrint(String fileName) throws Exception {
+		BufferedReader br = null;
+		br = new BufferedReader(new FileReader(fileName));
+		
+		String source = "";
+		while ((source = br.readLine()) != null) {
+			System.out.println(":: " + source);		
+		}		
+		
+		br.close();
+	}
+	
+	public static Vector<User> fileFindAddress(String fileName, String address) throws Exception {
+		
+		return null;
+	}
+}

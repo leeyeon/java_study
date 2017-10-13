@@ -1,0 +1,23 @@
+문제 1.
+
+SELECT
+emp.employee_id, emp.first_name, emp.last_name, NVL(dep.department_name, '<NOT-ASSIGNED>') department_name
+FROM employees emp, departments dep
+WHERE emp.department_id = dep.department_id(+)
+  AND emp.hire_date LIKE '99%';
+
+
+문제 2.
+SELECT
+emp.employee_id, emp.first_name, emp.last_name, emp.email, emp.phone_number, emp.hire_date, emp.job_id, emp.salary, emp.commission_pct, emp.manager_id, emp.department_id
+FROM employees emp, departments dep
+WHERE emp.department_id = dep.department_id
+      AND dep.department_name IN('Marketing');
+
+/*
+SELECT
+*
+FROM employees emp, departments dep
+WHERE emp.department_id = dep.department_id
+      AND dep.department_name IN('Marketing');
+*/

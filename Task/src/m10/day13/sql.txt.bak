@@ -1,0 +1,61 @@
+
+======>>>>>>> 사원
+CREATE TABLE employees (
+ employee_id    NUMBER(4)       CONSTRAINT      employees_employee_id_PK        PRIMARY KEY,
+ first_name     VARCHAR2(20),
+ last_name      VARCHAR2(25)    CONSTRAINT      employees_last_name_NN          NOT NULL,
+ email          VARCHAR2(25)    CONSTRAINT      employees_email_NN          NOT NULL,
+ phone_number   VARCHAR2(20)
+ hire_date      DATE
+ job_id         VARCHAR2(10)    CONSTRAINT      departments_location_id_FK        REFERENCES jobs(
+ salary         NUMBER(8,2)
+ commission_pct NUMBER(2,2)
+ manager_id     NUMBER(6)
+ department_id  NUMBER(4)
+);
+
+======>>>>>>> 부서
+CREATE TABLE departments (
+ department_id   NUMBER(6)      CONSTRAINT      departments_department_id_PK      PRIMARY KEY,
+ department_name VARCHAR2(30)   CONSTRAINT      departments_department_name_NN    NOT NULL,
+ manager_id      NUMBER(6)      CONSTRAINT      departments_manager_id_FK         REFERENCES employees(employee_id)
+ location_id     NUMBER(4)      CONSTRAINT      departments_location_id_FK        REFERENCES locations(location_id)
+);
+
+======>>>>>>> 위치
+CREATE TABLE locations (
+ location_id     NUMBER(4)      CONSTRAINT      locations_location_id_PK        PRIMARY KEY,
+ street_address  VARCHAR2(40),
+ postal_code     VARCHAR2(12),
+ city            VARCHAR2(30)   CONSTRAINT      locations_city_NN               NOT NULL,        
+ state_province  VARCHAR2(25),
+ country_id      CHAR(2)        CONSTRAINT      locations_country_id_FK         REFERENCES countries(country_id)
+);
+
+======>>>>>>> 국가
+CREATE TABLE countries (
+ country_id      CHAR(2)        CONSTRAINT      countries_country_id_PK         PRIMARY KEY,
+ country_name    VARCHAR2(40)   CONSTRAINT      countries_country_name_NN       NOT NULL,
+ region_id       NUMBER         CONSTRAINT      countries_region_id_FK          REFERENCES regions(region_id)
+);
+
+======>>>>>>> 지역
+CREATE TABLE regions (
+ region_id      NUMBER         CONSTRAINT      regions_region_id_PK           PRIMARY KEY,
+ region_name    VARCHAR2(25)   CONSTRAINT      regions_region_name_NN         NOT NULL
+);
+
+======>>>>>>> 업무이력
+CREATE TABLE jobs (
+ job_id         VARCHAR2(10)   CONSTRAINT      jobs_job_id_PK           PRIMARY KEY,
+ job_title      VARCHAR2(35)   CONSTRAINT      jobs_job_title_NN        NOT NULL,
+ min_salary     NUMBER(6),
+ max_salary     NUMBER(6)
+);
+
+CREATE TABLE job_history (
+ job_id         VARCHAR2(10)   CONSTRAINT      jobs_job_id_PK           PRIMARY KEY,
+ job_title      VARCHAR2(35)   CONSTRAINT      jobs_job_title_NN         NOT NULL,
+ min_salary     NUMBER(6),
+ max_salary     NUMBER(6)
+);

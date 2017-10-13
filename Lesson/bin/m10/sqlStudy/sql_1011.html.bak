@@ -1,0 +1,625 @@
+< CONCATENATION :: COLUMN 합성 >
+
+SELECT
+name || title
+FROM emp_test;
+
+SELECT
+name ||' '|| title
+FROM emp_test;
+
+------------------------------------------------------
+< 중복 제거 >
+DISTINCT !!
+뒤에 있는 것들 '조합'의 중복을 제거해준다.
+한 개의 컬럼만 아님ㅎㅎ
+====> 1대 1의 관계를 만들어줄라고
+
+INSERT
+INTO emp_test (name, dept_name)
+VALUES('홍길동', '관리부');
+
+SELECT dept_name 부서, name 이름
+FROM emp_test;
+
+
+SELECT DISTINCT dept_name 부서, name 이름
+FROM emp_test;
+
+ROLLBACK;
+
+------------------------------------------------------
+< 정렬, sort >
+ORDER BY C/N [ASC(default) | DESC]
+ASC : null : 마지막
+DESC : null : 처음
+
+SELECT
+name 이름, salary*12 연봉
+FROM emp_test
+ORDER BY salary*12 ASC;
+
+SELECT
+name 이름, salary*12 연봉
+FROM emp_test
+ORDER BY salary*12 DESC;
+
+SELECT
+name 이름, salary*12 연봉
+FROM emp_test
+ORDER BY salary*12;
+
+===============>>>>>>>>>>>>>> NULLS FIRST / NULLS LAST
+
+SELECT
+name 이름, salary*12 연봉
+FROM emp_test
+ORDER BY salary*12 ASC NULLS FIRST;
+
+SELECT
+name 이름, salary*12 연봉
+FROM emp_test
+ORDER BY salary*12 DESC NULLS LAST;
+
+===============>>>>>>>>>>>>>> expr / cloumn / alias / column index 사용
+
+SELECT
+name 이름, salary*12 연봉
+FROM emp_test
+ORDER BY salary*12;
+
+SELECT
+name 이름, salary*12 연봉
+FROM emp_test
+ORDER BY salary;
+
+SELECT
+name 이름, salary*12 연봉
+FROM emp_test
+ORDER BY 연봉;
+
+SELECT
+name 이름, salary*12 연봉
+FROM emp_test
+ORDER BY 2;
+
+===============>>>>>>>>>>>>>> 셀렉 하지 않아도 order by 할 수 있음.
+
+SELECT
+name 이름, salary*12 연봉, dept_name 부서
+FROM emp_test
+ORDER BY dept_name;
+
+SELECT
+name 이름, salary*12 연봉
+FROM emp_test
+ORDER BY dept_name;
+
+===============>>>>>>>>>>>>>> ORDER BY 순서대로 sorting해줌
+
+SELECT
+name 이름, salary*12 연봉, dept_name 부서
+FROM emp_test
+ORDER BY salary;
+
+SELECT
+name 이름, salary*12 연봉, dept_name 부서
+FROM emp_test
+ORDER BY salary, 부서;
+
+SELECT
+name 이름, salary*12 연봉, dept_name 부서
+FROM emp_test
+ORDER BY 부서, salary;
+
+------------------------------------------------------
+
+//==============================================//
+//=================== 실   습 1 ====================//
+//==============================================//
+
+1. || 사용      홍길동 님은 관리부에서 근무함       형식으로 출력
+
+SELECT name
+	|| ' 님은 '
+	|| dept_name
+	|| ' 에서 근무함'
+FROM emp_test
+WHERE name = '홍길동';
+
+2. || 사용  아래와 같이 출력 (ALIAS사용)
+
+이름 직책 연봉 ?   
+------------------------------------------------------------------
+김사장 님 사장이며 연봉은 7200 원
+홍길동 님 부사장이며 연봉은 18000 원
+홍길순 님 사장이며 연봉은 30000 원
+김유신111 님 대리11이며 연봉은 13332 원
+SCOTT 님 부사장이며 연봉은 18000 원
+김유신222 님 대리22이며 연봉은 26664 원
+333김유신 님 33대리이며 연봉은 39996 원   
+444김유신 님 44대리이며 연봉은 53328 원   
+이순신555 님 부장이며 연봉은 66660 원 
+이순신666 님 이며 연봉은 79992 원 
+주몽777 님 이며 연봉은 93324 원   
+평민888 님 대리이며 연봉은 0 원
+한국990 님 이며 연봉은 119880 원
+꺽다리991 님 이며 연봉은 0 원 
+짠돌이992 님 과장이며 연봉은 119904 원
+
+15 개의 행이 선택되었습니다.
+
+SELECT name
+	|| ' 님 '
+	|| title
+	|| '이며 연봉은 '
+	|| NVL(salary*12, 0)
+	|| ' 원'
+	AS "이름 직책 연봉"
+FROM emp_test;
+
+
+//==============================================//
+//=================== 실   습 2 ===================//
+//==============================================//
+
+1.  개발부서의 김사장입니다       형식조회  (오름차순으로 정렬)
+
+SELECT dept_name
+	|| '의 '
+	|| name
+	|| '입니다.'
+	AS "부서의 이름입니다."
+FROM emp_test
+/*ORDER BY dept_name, name*/
+ORDER BY 1;
+
+2. 부서별/연봉이 높은 순서 이름/부서/연봉 조회
+
+SELECT name 이름, dept_name 부서, NVL(salary, 0)*12 연봉
+FROM emp_test
+ORDER BY 부서, salary DESC NULLS LAST;
+
+
+3. 연봉이 높은순서,  입사연도가 빠른순서 연봉/입사년도/이름 조회
+
+SELECT NVL(salary,0)*12, in_date 입사년도, name 이름
+FROM emp_test
+ORDER BY salary DESC NULLS LAST, in_date;
+
+
+------------------------------------------------------
+
+===============>>>>>>>>>>>>>> ORDER BY :: 순서 :: 숫자 => 영어 => 한글
+
+
+SELECT
+name 이름, salary 월급, in_date 입사일
+FROM emp_test
+WHERE salary >= 5000
+ORDER BY salary;
+
+SELECT
+name 이름, salary 월급, in_date 입사일
+FROM emp_test
+WHERE in_date >= '2004-01-01'
+ORDER BY in_date;
+
+SELECT
+name 이름, salary 월급, in_date 입사일
+FROM emp_test
+WHERE name >= '이순신666'
+ORDER BY name;
+
+SELECT name FROM emp_test ORDER BY name;
+
+
+------------------------------------------------------
+
+===============>>>>>>>>>>>>>> 논리연산자 우선순위 : NOT > AND > OR
+
+SELECT
+name 이름, salary 월급, in_date 입사일
+FROM emp_test
+WHERE in_date >= '2004-01-01' AND salary >= 5000;
+
+SELECT
+name 이름, salary 월급, in_date 입사일
+FROM emp_test
+WHERE in_date >= '2004-01-01' OR salary >= 5000;
+
+SELECT
+name 이름, salary 월급, dept_name 부서, in_date 입사일
+FROM emp_test
+WHERE in_date >= '2004-01-01' AND salary >= 5000 OR dept_name = '관리부';
+
+SELECT
+name 이름, salary 월급, dept_name 부서, in_date 입사일
+FROM emp_test
+WHERE in_date >= '2004-01-01' AND (salary >= 5000 OR dept_name = '관리부');
+
+
+------------------------------------------------------
+==============================SQL 연산자
+------------------------------------------------------
+===============>>>>>>>>>>>>>> BETWEEN A AND B :: A < B 일 것 !!
+===============>>>>>>>>>>>>>> A <= x <= B
+
+SELECT
+name 이름, salary 월급, in_date 입사일
+FROM emp_test
+WHERE salary BETWEEN 1000 AND 2500
+ORDER BY salary;
+
+/* 주의 A < B */
+
+SELECT
+name 이름, salary 월급, in_date 입사일
+FROM emp_test
+WHERE salary BETWEEN 2500 AND 1000
+ORDER BY salary;
+
+===============>>>>>>>>>>>>>> BETWEEN A AND B :: A < B 일 것 !!
+===============>>>>>>>>>>>>>> A < x < B
+
+SELECT
+name 이름, salary 월급, in_date 입사일
+FROM emp_test
+WHERE salary NOT BETWEEN 1000 AND 2500
+ORDER BY salary;
+
+===============>>>>>>>>>>>>>>===============>>>>>>>>>>>>>>1000이랑 2000 뺀 between은?
+
+SELECT
+name 이름, salary 월급, in_date 입사일
+FROM emp_test
+WHERE name BETWEEN '김유신222' AND '한국990'
+ORDER BY name;
+
+SELECT
+name 이름, salary 월급, dept_name 부서, in_date 입사일
+FROM emp_test
+WHERE name BETWEEN '한국990' AND '김유신222';
+
+------------------------------------------------------
+===============>>>>>>>>>>>>>> IN(value [,value])
+===============>>>>>>>>>>>>>> != :: <>
+
+SELECT
+name 이름, dept_name 부서
+FROM emp_test
+WHERE dept_name IN('관리부', '영업부')
+ORDER BY dept_name;
+
+SELECT
+name 이름, dept_name 부서
+FROM emp_test
+WHERE dept_name = '관리부' OR dept_name = '영업부'
+ORDER BY dept_name;
+
+
+
+SELECT
+name 이름, dept_name 부서
+FROM emp_test
+WHERE dept_name NOT IN('관리부', '영업부')
+ORDER BY dept_name;
+
+SELECT
+name 이름, dept_name 부서
+FROM emp_test
+WHERE dept_name != '관리부' AND dept_name != '영업부'
+ORDER BY dept_name;
+
+SELECT
+name 이름, dept_name 부서
+FROM emp_test
+WHERE (dept_name <> '관리부') AND (dept_name <> '영업부')
+ORDER BY dept_name;
+
+
+------------------------------------------------------
+===============>>>>>>>>>>>>>> LIKE
+===============>>>>>>>>>>>>>> _ => 하나 % => 다중
+
+SELECT
+name 이름, dept_name 부서
+FROM emp_test
+WHERE name LIKE '김%';
+
+SELECT
+name 이름, dept_name 부서
+FROM emp_test
+WHERE name LIKE '김_';
+
+SELECT
+name 이름, dept_name 부서
+FROM emp_test
+WHERE name LIKE '김__';
+
+SELECT
+name 이름, dept_name 부서
+FROM emp_test
+WHERE name LIKE '_길_';
+
+------------------------------------------------------
+
+INSERT INTO emp_test (name, title) VALUES ('박_%', '특수%');
+INSERT INTO emp_test (name, title) VALUES ('김_%', '특수%');
+SELECT * FROM emp_test;
+COMMIT;
+
+SELECT *
+FROM emp_test
+WHERE name LIKE '__%';
+
+===============>>>>>>>>>>>>>> ESCAPE 옵션을 사용하여 예약어와 같은 기호 찾을 수 있다
+
+SELECT *
+FROM emp_test
+WHERE name LIKE '_\_\%' ESCAPE '\';
+
+SELECT *
+FROM emp_test
+WHERE name LIKE '_?_?%' ESCAPE '?';
+
+===============>>>>>>>>>>>>>> LIKE 일 / 월 / 년 검색하기
+
+SELECT
+name 이름, in_date 입사일
+FROM emp_test
+WHERE in_date LIKE '%01';
+
+SELECT
+name 이름, in_date 입사일
+FROM emp_test
+WHERE in_date LIKE '%/01/%';
+
+SELECT
+name 이름, in_date 입사일
+FROM emp_test
+WHERE in_date LIKE '04%';
+
+SELECT
+name 이름, in_date 입사일
+FROM emp_test
+WHERE in_date LIKE '%0%';
+
+------------------------------------------------------
+
+SELECT
+name 이름, salary 월급
+FROM emp_test
+WHERE salary > ALL(2500,5000);
+
+SELECT
+name 이름, salary 월급
+FROM emp_test
+WHERE salary > ANY(2500,5000);
+
+
+------------------------------------------------------
+//==============================================//
+//==================== 실   습  ====================//
+//==============================================//
+
+1. 직책 종류 조회
+
+SELECT 
+DISTINCT title 직책
+FROM emp_test
+ORDER BY title;
+
+2. 2001년 입사자 이름, 직책, 입사일 조회
+    (   1번째 QUERY는 LIKE사용
+	2번째 QUERY는 BETWEEN사용   )
+
+SELECT name 이름, title 직책, in_date 입사일
+FROM emp_test
+WHERE in_date LIKE '01%';
+
+SELECT name 이름, title 직책, in_date 입사일
+FROM emp_test
+WHERE in_date Between '2001-01-01' and '2001-12-31';
+
+3. 임금이 NULL인 사원의 모든 정보 입사일 오름차순 조회
+
+SELECT *
+FROM emp_test
+WHERE title IS NULL
+ORDER BY in_date;
+
+4. 관리부에서 급여가 6000이상 인 사람 이름/급여/부서 조회
+
+SELECT name 이름, salary 급여, dept_name 부서
+FROM emp_test
+WHERE salary >= 6000 AND dept_name IN('관리부');
+
+
+
+
+------------------------------------------------------
+===============>>>>>>>>>>>>>> 단일행 함수 : 문자 함수 CONCAT(A, B)
+
+
+SELECT
+CONCAT( CONCAT(name, '님의 월급은 '), CONCAT(salary, '원') ) "사원 월급"
+FROM emp_test;
+
+SELECT
+CONCAT( CONCAT(name, '님의 월급은 '), CONCAT(NVL(salary, 0), '원') ) "사원 월급"
+FROM emp_test;
+
+/* 앞에서부터 index count */
+SELECT
+name 이름, in_date 입사년도
+FROM emp_test
+WHERE SUBSTR(in_date,1,2) = '01';
+
+/* 뒤에서부터 index count */
+SELECT
+name 이름, in_date 입사년도
+FROM emp_test
+WHERE SUBSTR(in_date,-2,2) = '06';
+
+SELECT
+TITLE 투자직책
+FROM emp_test
+WHERE LENGTH(TITLE) = 2;
+
+
+===============>>>>>>>>>>>>>> REPLACE(name, '김사','XY') :: 똑같은 거 XY로 바꿔
+===============>>>>>>>>>>>>>> TRANSLATE(name, '김사','XY') :: 글자당 바꿔
+===============>>>>>>>>>>>>>> LPAD(str, oldData, newData, 자릿수, 바꿀거) :: 왼쪽부터
+===============>>>>>>>>>>>>>> RPAD(str, oldData, newData, 자릿수, 바꿀거) :: 오른쪽부터
+
+
+
+SELECT name, REPLACE(name, '김사','XY')
+FROM emp_test;
+
+SELECT name, TRANSLATE(name, '김사','XY')
+FROM emp_test;
+
+SELECT salary, TRANSLATE(salary, '0123456789','영일이삼사오육칠팔구')
+FROM emp_test;
+
+SELECT salary, LPAD(TRANSLATE(salary, '0123456789','영일이삼사오육칠팔구'), 10, '*')
+FROM emp_test;
+
+SELECT salary, LPAD(TRANSLATE(NVL(salary,0), '0123456789','영일이삼사오육칠팔구'), 10, '*')
+FROM emp_test;
+
+SELECT salary, RPAD(TRANSLATE(NVL(salary,0), '0123456789','영일이삼사오육칠팔구'), 10, '*')
+FROM emp_test;
+
+SELECT name
+FROM emp_test
+WHERE LENGTH(name) = 3;
+
+
+===============>>>>>>>>>>>>>> MOD(data, 나눌값) :: 나머지
+
+SELECT
+id 홀수아이디, name 이름
+FROM emp_test
+WHERE MOD(id, 2) = 1;
+
+
+
+------------------------------------------------------
+
+===============>>>>>>>>>>>>>> MONTHS_BETWEEN(SYSDATE, in_date) : 현재날짜부터 in_date 까지 개월수
+
+SELECT
+name 이름, ROUND(MONTHS_BETWEEN(SYSDATE, in_date), 0) 근무개월,
+salary 월급, ROUND(MONTHS_BETWEEN(SYSDATE, in_date), 0) * NVL(salary,0)*0.3 퇴직금
+FROM emp_test
+ORDER BY 퇴직금 DESC;
+
+SELECT
+name, SYSDATE - in_date || '일 재직'
+FROM emp_test;
+
+SELECT
+name, MONTHS_BETWEEN(SYSDATE, in_date) || '월 재직'
+FROM emp_test;
+
+===============>>>>>>>>>>>>>> 이번달 마지막 날?
+SELECT LAST_DAY(SYSDATE) FROM DUAL;
+
+
+------------------------------------------------------
+===============>>>>>>>>>>>>>> 다중행 함수
+===============>>>>>>>>>>>>>> COUNT, AVG, SUM, MIN, MAX
+===============>>>>>>>>>>>>>> COUNT : 레코드 개수
+===============>>>>>>>>>>>>>> ROWNUM : ROW NUBERING
+
+SELECT
+COUNT(*)
+FROM emp_test;
+
+SELECT
+ROWNUM, id, name
+FROM emp_test;
+
+SELECT
+COUNT(*) as "레코드",
+COUNT(salary) as "월급수령자",
+COUNT(NVL(salary,0)) as "월급수령자 (null 포함)",
+COUNT(DISTINCT salary) as "월급종류",
+COUNT(DISTINCT NVL(salary,0)) as "월급종류 (null 포함)"
+FROM emp_test;
+
+
+SELECT
+COUNT(*) 영업부직원1,
+COUNT(dept_name) 영업부직원2,
+COUNT(NVL(salary,0)) 영업부직원월급수령자
+FROM emp_test
+WHERE dept_name = '영업부';
+
+SELECT
+SUM(salary) 관리부월급합,
+MAX(salary) 관리부최대월급,
+MIN(salary) 관리부최소월급,
+AVG(salary) 관리부평균월급,
+AVG(NVL(salary,0)) AS 관리부평균월급2
+FROM emp_test
+WHERE dept_name = '관리부';
+
+SELECT
+SUM(salary) 영업부월급합,
+MAX(salary) 관리부최대월급,
+MIN(salary) 관리부최소월급,
+AVG(salary) 관리부평균월급,
+AVG(NVL(salary,0)) 관리부평균월급2
+FROM emp_test
+WHERE dept_name = '영업부';
+
+
+------------------------------------------------------
+===============>>>>>>>>>>>>>> 다중행 함수(그룹 함수) :: GROUP BY
+
+===============>>>>>>>>>>>>>> error 왜 ? 1:다 관계가 되니까.
+
+SELECT
+dept_name, MAX(salary)
+FROM emp_test
+WHERE dept_name = '관리부';
+
+===============>>>>>>>>>>>>>> Group by 는 엑셀의 sell 병합과 같은 의미.
+===============>>>>>>>>>>>>>> 1 : 1 관계를 만들어주어서.
+
+SELECT
+dept_name, MAX(salary)
+FROM emp_test
+WHERE dept_name = '관리부'
+GROUP BY dept_name;
+
+===============>>>>>>>>>>>>>> where dept_name = '관리부' 를 빼면
+===============>>>>>>>>>>>>>> 각 부서당 월급의 총합이 됨.
+
+SELECT
+dept_name, MAX(salary)
+FROM emp_test
+WHERE dept_name IS NOT NULL
+GROUP BY dept_name;
+
+SELECT
+NVL(dept_name, '부서배치전'), MAX(salary)
+FROM emp_test
+GROUP BY dept_name;
+
+SELECT
+DECODE(dept_name
+		'부서배치전'), MAX(salary)
+FROM emp_test
+GROUP BY dept_name;
+
+------------------------------------------------------
+
+
+
+
+

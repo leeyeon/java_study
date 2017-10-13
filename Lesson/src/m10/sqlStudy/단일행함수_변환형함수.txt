@@ -1,0 +1,88 @@
+//==============================================
+4. 단일행 함수 ::  변환형 함수   TO_CHAR  TO_NUMBER  TO_DATE
+
+//==>  아래의 결과 확인
+SELECT 
+SYSDATE,
+TO_DATE('2077','YYYY') , 
+TO_DATE('207703','YYYYMM') , 
+LAST_DAY(TO_DATE('207707','YYYYMM') ) ,
+TO_DATE('20770703','YYYYMMDD') 
+FROM DUAL;
+ 
+ //==> 2022년 12월27일은 년, 월 일조회
+SELECT
+TO_DATE('2077-07-07','YYYY-MM-DD') ,
+TO_CHAR(TO_DATE('2077-07-03','YYYY-MM-DD'), 'YEAR') ,
+TO_CHAR(TO_DATE('2077-07-03','YYYY-MM-DD'), 'YYYY') ,
+TO_CHAR(TO_DATE('2077-07-03','YYYY-MM-DD'), 'YY') ,
+TO_CHAR(TO_DATE('2077-07-03','YYYY-MM-DD'), 'MONTH') ,
+TO_CHAR(TO_DATE('2077-07-03','YYYY-MM-DD'), 'MM') ,
+TO_CHAR(TO_DATE('2077-07-03','YYYY-MM-DD'), 'DAY'),
+TO_CHAR(TO_DATE('2077-07-03','YYYY-MM-DD'), 'DD')
+FROM DUAL;
+
+
+
+//==> 각각의 계산결과 확인 :: 난짜는  일(DAY) 기준
+//==> 5일 더하기
+SELECT
+SYSDATE , SYSDATE + 5 ,
+TO_CHAR(SYSDATE , 'YYYY-MM-DD-HH24:MI:SS' ) ,
+TO_CHAR(SYSDATE+5 , 'YYYY-MM-DD-HH24:MI:SS' )
+FROM DUAL;
+
+//==> 1 시간 (60분) 더하기
+SELECT
+SYSDATE , SYSDATE + (1 / 24),
+TO_CHAR(SYSDATE , 'YYYY-MM-DD-HH24:MI:SS' ) ,
+TO_CHAR(SYSDATE + (1 / 24) , 'YYYY-MM-DD-HH24:MI:SS' )
+FROM DUAL;
+
+//==> 12개월 더하기 ???
+SELECT
+SYSDATE , SYSDATE + (30 * 12) ,
+TO_CHAR(SYSDATE , 'YYYY-MM-DD-HH24:MI:SS' ) ,
+TO_CHAR(SYSDATE+ (30 * 12) , 'YYYY-MM-DD-HH24:MI:SS' )
+FROM DUAL;
+
+//==>  위의 결과와 비교
+SELECT
+SYSDATE , ADD_MONTHS(SYSDATE,12) ,
+TO_CHAR(SYSDATE , 'YYYY-MM-DD-HH24:MI:SS' ) ,
+TO_CHAR( ADD_MONTHS(SYSDATE,12) , 'YYYY-MM-DD-HH24:MI:SS' )
+FROM DUAL;
+
+
+
+//==> 7월입사자 이름, 입사일 조회
+SELECT 
+name, in_date
+FROM emp_test
+/*  WHERE SUBSTR(in_date,4,2) = '07';   */
+WHERE TO_CHAR(in_date,'MM') = '07';
+
+//==> 월요일 입사자.
+SELECT 
+name
+FROM emp_test 
+/*   WHERE TO_CHAR(in_date, 'DAY') ='월요일';   */
+/*   WHERE TO_CHAR(in_date, 'DY') ='월';   */
+WHERE TO_CHAR(in_date, 'D') =2; 
+
+==> 아래의 QUERY 이해
+SELECT 
+name, TO_CHAR(in_date, 'DAY'), TO_CHAR(in_date, 'DY'), TO_CHAR(in_date, 'D') 
+FROM emp_test; 
+
+
+
+//==> 이름,연봉을 \999,999.99형식으로  출력
+SELECT 
+name 이름 , TO_CHAR( NVL(salary,0)*12 , 'L999,999.99' ) 연봉
+FROM emp_test
+ORDER BY NVL(salary,0)  DESC;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+==> 첨부의 SingleRowFunction실습.doc를 참조할것...
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

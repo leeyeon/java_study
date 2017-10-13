@@ -1,0 +1,14 @@
+package m10.day12;
+
+import java.util.Vector;
+
+public class FileUtil {
+	public static void fileToPrint(String fileName) throws Exception {
+		
+	}
+	
+	public static Vector<User> fileFindAddress(String fileName, String address) throws Exception {
+		
+		return null;
+	}
+}

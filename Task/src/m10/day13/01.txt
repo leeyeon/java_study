@@ -1,0 +1,113 @@
+1번
+
+SELECT
+emp.employee_id 사번, dep.department_id 부서번호, emp.salary 연봉, vt.avg_salary 부서평균연봉
+FROM employees emp, departments dep, ( SELECT
+                                       dep.department_id department_id, ROUND(AVG(emp.salary),0) avg_salary
+                                       FROM employees emp, departments dep
+                                       WHERE emp.department_id = dep.department_id
+                                       GROUP BY dep.department_id
+                                       ORDER BY salary DESC) vt
+WHERE emp.department_id = dep.department_id
+      AND dep.department_id = vt.department_id
+      AND emp.salary > vt.avg_salary
+ORDER BY vt.avg_salary DESC;
+
+
+
+2번
+ranking 은 없는 필드니까!
+가상 테이블을 만들어서 참조한다.
+
+SELECT
+ranking  AS ranking, last_name, first_name, salary
+FROM (SELECT
+      RANK() OVER(ORDER BY salary DESC) AS ranking, last_name, first_name, salary
+      FROM employees )
+WHERE ranking BETWEEN 6 AND 10;
+
+
+3번
+
+SELECT
+TO_CHAR(TO_DATE(emp.hire_date, 'RR,MM,DD'),'YYYY') 년도, AVG(emp.salary) 평균급여
+FROM employees emp, jobs job
+WHERE emp.job_id = job.job_id
+      AND job.job_title IN ('Sales Manager')                         
+GROUP BY TO_CHAR(TO_DATE(emp.hire_date, 'RR,MM,DD'),'YYYY')
+ORDER BY TO_CHAR(TO_DATE(emp.hire_date, 'RR,MM,DD'),'YYYY');
+
+
+4번
+SELECT
+emp1.last_name 사원이름, emp2.last_name 매니저이름, dep.department_name 부서이름
+FROM employees emp1, employees emp2, departments dep, locations loc
+WHERE emp1.manager_id = emp2.employee_id
+      AND emp1.department_id = dep.department_id
+      AND dep.location_id = loc.location_id
+      AND loc.city IN('Seattle')
+ORDER BY emp1.last_name;
+
+
+5번
+SELECT
+emp.last_name 사원이름,  vt.dept_name 부서이름, vt.min 급여
+FROM employees emp,
+(SELECT
+   dep.department_name dept_name, MIN(emp.salary) min, dep.department_id dept_id
+   FROM employees emp, departments dep
+   WHERE emp.department_id = dep.department_id
+   GROUP BY dep.department_name, dep.department_id
+   ORDER BY dep.department_name) vt
+WHERE  emp.department_id = (vt.dept_id)
+       AND emp.salary = vt.min
+ORDER BY vt.dept_name, emp.last_name;
+
+
+------------ 줄이고 싶다!!! 안된다!! .... -------------------------------------------
+SELECT
+emp.last_name 사원이름, dep.department_name dept_name, MIN(emp.salary) min
+FROM employees emp, departments dep
+   WHERE emp.department_id = dep.department_id
+   GROUP BY dep.department_name, emp.last_name
+   HAVING emp.salary = MIN(emp.salary)
+   ORDER BY dep.department_name;
+
+
+
+
+6번
+
+SELECT
+loc.city 도시이름, AVG(salary) 평균급여, count(*) 직원수
+FROM employees emp, departments dep, locations loc
+WHERE emp.department_id = dep.department_id
+      AND dep.location_id = loc.location_id
+GROUP BY loc.city
+having count(*) < 10
+ORDER BY AVG(salary);
+
+
+7번
+
+SELECT
+job.job_title 직책, TO_CHAR(AVG(emp.salary),'99,999') 평균급여
+FROM employees emp, jobs job, departments dep
+WHERE emp.job_id = job.job_id
+     AND emp.department_id = dep.department_id
+     AND dep.department_id IN('30')
+GROUP BY job.job_title;
+
+
+
+8번
+
+SELECT
+emp.employee_id 사번, emp.first_name||' '||emp.last_name 이름
+FROM employees emp, jobs job, job_history his
+WHERE emp.job_id = job.job_id
+      AND emp.employee_id = his.employee_id
+      AND his.job_id IN ( SELECT
+                          job_id
+                          FROM jobs
+                          WHERE job_title IN('Public Accountant') );

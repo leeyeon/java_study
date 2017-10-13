@@ -8,15 +8,13 @@ public class Dir {
 		File file = new File(str);
 		File[] fileList = file.listFiles();
 		
-		if(file.isDirectory()) {
-			for(int i=0; i<fileList.length; i++) {
-				if(fileList[i].isDirectory()) {
-					printDir(fileList[i].getPath());
-				}
+		for(int i=0; i<fileList.length; i++) {
+			if(fileList[i].isDirectory()) {
+				printDir(fileList[i].getPath());
 			}
-			
-			System.out.println(file.getPath());
 		}
+		
+		System.out.println(file.getPath());
 	}
 
 	public static void main(String[] args) {

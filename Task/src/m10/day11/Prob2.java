@@ -2,6 +2,7 @@ package m10.day11;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
 
 public class Prob2 {
@@ -14,12 +15,12 @@ public class Prob2 {
 		for(int i=0; i<array.length; i++) {			
 			for(int j=0; j<array.length; j++) {
 				if(((i!=j) && (compare == array[j]))) {
-					compare = new Random().nextInt()%10 + 10;
+					compare = new Random().nextInt(20) + 1;
 					j=0;
 				}
 			}
 			
-			if(compare == 0) i--;
+			if(i==21) i--;
 			else array[i] = compare;
 			
 		}
@@ -29,37 +30,41 @@ public class Prob2 {
 	
 	public static void printStatistics(int[] array) {
 		
-		int max = 0;
-		int min = 20;
-		double sum = 0;
+		BufferedWriter bw = null;
 		
 		try {
-			BufferedWriter bw = new BufferedWriter(new FileWriter("./store.txt"));
+			bw = new BufferedWriter(new FileWriter("./store.txt"));
+			int max = array[0];
+			int min = array[0];
+			double sum = 0;
 			
 			for(int i=0; i<array.length; i++) {
-				//System.out.println(array[i]);
 				bw.write(array[i]+"\n");
 				
-				if(max <= array[i])
-					max = array[i];
-				if(min >= array[i])
-					min = array[i];
+				if (i != 0) {
+					Math.max(max, array[i]);
+					Math.min(min, array[i]);
+				}
+				
 				sum += array[i];
 			}
-			
-//			System.out.println(max);
-//			System.out.println(min);
-//			System.out.println(sum/array.length);
 			
 			bw.write("최대값 : "+max+"\n");
 			bw.write("최소값 : "+min+"\n");
 			bw.write("평균값 : "+sum/array.length);
 			
 			bw.flush();
-			bw.close();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if(bw != null) {
+					bw.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
