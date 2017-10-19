@@ -127,7 +127,7 @@
 
 		
 
-      <Context docBase="myWeb" path="/myWeb" reloadable="true" source="org.eclipse.jst.jee.server:myWeb"/><Context docBase="edu" path="/edu" reloadable="true" source="org.eclipse.jst.jee.server:edu"/></Host>
+      <Context docBase="myWeb" path="/myWeb" reloadable="true" source="org.eclipse.jst.jee.server:myWeb"/></Host>
     </Engine>
   </Service>
 </Server>

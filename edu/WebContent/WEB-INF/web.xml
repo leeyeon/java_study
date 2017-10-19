@@ -47,6 +47,16 @@
 		<servlet-class>PostData</servlet-class>
 	</servlet>
 
+	<servlet>
+		<servlet-name>GetDataKrATagServletMapping</servlet-name>
+		<servlet-class>jw02.GetDataKrATagServletMapping</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>GetDataKrATagServletMapping</servlet-name>
+		<url-pattern>/GetDataKrATagServletMapping</url-pattern>
+	</servlet-mapping>
+
 	<servlet-mapping>
 		<servlet-name>PostData</servlet-name>
 		<url-pattern>/PostData</url-pattern>
