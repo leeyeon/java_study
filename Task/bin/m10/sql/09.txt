@@ -1,0 +1,41 @@
+1번
+
+SELECT
+DECODE ( TRUNC(commission_pct,1),
+         NULL, '<커미션 없음>',
+         TRUNC(commission_pct,1) ) 커미션, count(*) 직원수
+FROM employees
+GROUP BY TRUNC(commission_pct,1);
+
+2번
+
+SELECT
+부서명, 직원명, 급여, 커미션
+FROM
+( SELECT
+  ROW_NUMBER() OVER (ORDER BY emp.commission_pct DESC ) AS rank ,
+  emp.commission_pct As 커미션 , emp.first_name AS 직원명, emp.salary 급여, dep.department_name 부서명
+  FROM employees emp, departments dep
+  WHERE emp.department_id = dep.department_id
+        AND commission_pct IS NOT NULL
+  ORDER BY emp.commission_pct DESC NULLS LAST )
+WHERE rank <= 4;
+
+
+3번
+
+SELECT
+loc.city, dep.department_name, emp.first_name, emp.salary
+FROM employees emp, departments dep, locations loc
+WHERE emp.department_id = dep.department_id
+      AND dep.location_id = loc.location_id
+      AND LOWER(loc.city) LIKE LOWER('%South%')
+      AND LOWER(dep.department_name) LIKE LOWER('%it%');
+
+SELECT
+loc.city, dep.department_name, emp.first_name, emp.salary
+FROM employees emp, departments dep, locations loc
+WHERE emp.department_id = dep.department_id
+      AND dep.location_id = loc.location_id
+      AND LOWER(loc.city) LIKE LOWER('%lon%')
+      AND LOWER(dep.department_name) LIKE LOWER('%resource%');

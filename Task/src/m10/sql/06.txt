@@ -1,0 +1,35 @@
+1번
+
+SELECT
+emp.first_name 이름, emp.hire_date 입사일, mgr.employee_id 관리자사번, mgr.first_name 관리자이름
+FROM employees emp, employees mgr
+WHERE emp.manager_id = mgr.employee_id(+)
+/* TO_CHAR(emp.hire_date, 'YY') */
+      AND emp.hire_date LIKE '8%'
+ORDER BY mgr.employee_id DESC NULLS LAST;
+
+
+2번
+
+SELECT
+emp.first_name 이름, emp.salary 급여, dep.department_name 부서이름
+FROM employees emp, departments dep, ( SELECT
+                                       AVG(salary) avg
+                                       FROM employees
+                                       WHERE department_id IN ('100')) deps
+WHERE emp.department_id = dep.department_id
+      AND dep.department_name IN ('Sales')
+      AND emp.salary < deps.avg;
+
+
+
+3번
+
+SELECT
+emp.last_name 직원명, dep.department_name 부서명
+FROM employees emp, departments dep, locations loc
+      WHERE emp.department_id = dep.department_id
+      AND dep.location_id = loc.location_id
+      AND loc.city IN ('South San Francisco')
+      AND emp.salary BETWEEN 7000 AND 10000;
+

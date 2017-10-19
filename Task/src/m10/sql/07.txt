@@ -1,0 +1,50 @@
+1번
+
+SELECT
+CONCAT(TO_CHAR(TO_DATE(hire_date, 'YY/MM/DD'), 'MM'),'월') AS 월 , count(*) AS 직원수
+FROM employees
+GROUP BY TO_CHAR(TO_DATE(hire_date, 'YY/MM/DD'), 'MM')
+ORDER BY TO_CHAR(TO_DATE(hire_date, 'YY/MM/DD'), 'MM');
+
+
+2번
+
+SELECT
+deps.department_name, emp.first_name, emp.salary
+FROM employees emp, ( SELECT
+			dep.department_id, dep.department_name, MAX(emp.salary) max_salary
+			FROM employees emp, departments dep
+			WHERE emp.department_id = dep.department_id
+			GROUP BY dep.department_name, dep.department_id) deps
+WHERE emp.department_id = deps.department_id
+      AND emp.salary = deps.max_salary;
+
+
+3번
+
+SELECT
+dep.department_name, dep.department_id, 
+MAX(emp.salary) AS max, MIN(emp.salary) AS MIN, TRUNC(AVG(emp.salary), 0) AS AVG
+FROM employees emp, departments dep
+WHERE emp.department_id = dep.department_id
+GROUP BY dep.department_name, dep.department_id
+HAVING TRUNC(AVG(emp.salary), 0) > ( SELECT
+                    TRUNC(AVG(emp.salary), 0)
+                    FROM employees emp, departments dep
+                    WHERE emp.department_id = dep.department_id
+                          AND dep.department_name IN('IT') )
+      AND TRUNC(AVG(emp.salary), 0) < ( SELECT
+                    TRUNC(AVG(emp.salary), 0)
+                    FROM employees emp, departments dep
+                    WHERE emp.department_id = dep.department_id
+                          AND dep.department_name IN('Sales') )
+
+4번
+
+SELECT
+NVL(dep.department_name, '<신생부서>') 부서명, count(*) 직원수
+FROM employees emp, departments dep
+WHERE emp.department_id = dep.department_id(+)
+GROUP BY dep.department_name
+HAVING count(*) = 1
+ORDER BY dep.department_name NULLS LAST;

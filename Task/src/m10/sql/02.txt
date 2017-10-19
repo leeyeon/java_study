@@ -1,0 +1,35 @@
+문제 1.
+
+SELECT
+emp.employee_id, emp.first_name, emp.last_name, NVL(dep.department_name, '<NOT-ASSIGNED>') department_name
+FROM employees emp, departments dep
+WHERE emp.department_id = dep.department_id(+)
+  AND emp.hire_date LIKE '99%';
+
+// TO_CHAR(e.hire_date,'YY') = 99;
+// emp.hire_date < TO_DATE('2000-01-01', 'YYYY-MM-DD')
+
+문제 2.
+SELECT
+emp.*
+FROM employees emp, departments dep
+WHERE emp.department_id = dep.department_id
+      AND dep.department_name IN('Marketing');
+
+/*
+SELECT
+*
+FROM employees emp, departments dep
+WHERE emp.department_id = dep.department_id
+      AND dep.department_name IN('Marketing');
+*/
+
+문제 3.
+
+SELECT
+job.job_title, MAX(salary)
+FROM employees emp, jobs job
+WHERE emp.job_id = job.job_id
+      AND emp.salary > 10000
+GROUP BY job.job_title
+ORDER BY MAX(salary) DESC;

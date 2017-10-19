@@ -319,6 +319,10 @@ Stack
 55. URL : Uniform Resource Locator
     URI : Uniform Resuorce Identifier
 
+http:// IP : port / OOO / ~.html/~.jsp (URL)
+                      ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ(URI)
+
+
 56. GUI : Graphical User Interface
 
 57. java : server side 용임! c++과 비교하여 속도 떨어짐. 왜? 직접 OS에 접근안함
@@ -445,5 +449,235 @@ SELECT * FROM TAB;
     inline view : from 절 상의 쿼리 ... ( 가상테이블 생성 )
 
 
+89. HTTP : 통신 프로토콜 , ~에 접근해라. defalut
+
+90. statement < preparedStatement
+ 싱글/더블 쿼티션 -> 실수 유발
+ parsing -> complie -> run ... 반복작업
+
+91. connection pool
+
+92. TCL...트랜잭션 : 원자성
+ autoCommit(false) 
+ -> commit / rollback 제어
+ autoCommit(ture) //default값
+
+93. WAS : Web Application Server => ex. tomcat
+ Web Server + App(Servlet/jsp container) ...
+
+ servlet container = set engine
+******************************* PORT 번호 변경하기 *****************************************
+1. SQL Plus 실행 : sqlplus /nolog
+2. Database 접속 : CONNECT SYSTEM/설치할 때 입력한 패스워드
+3. Port 변경 명령 수행 : EXEC DBMS_XDB.SETHTTPPORT(5000);
+4. SQL Plus 종료 : exit
+**************************************************************************************************
+
+94. browser : html 파싱 -> display
+
+95. servlet / jsp : browser가 인식할 수 있는 표준화된 웹 기술
+
+
+
+**********************************************************************************
+*********************** edu Web Application 생성하기 **********************
+**********************************************************************************
+
+ㅇ web.xml  : web application 환경파일(deployment descriptor)
+
+ㅇ server.xml : tomcat 환경파일
+
+ㅇ 새로운 web Application 생성
+	1. tomcat 환경파일 server.xml 에 새로운 Web Application 등록
+	2. 새로 생성된 Web Application 의 설정은 web.xml 에 기술
+
+
+1.  edu Web Application directory  만들기
+	ㅇ 루트 폴더에 edu 폴더생성			:  c:\edu
+	ㅇ edu 폴더에 WEB-INF 폴더 생성		:  c:\edu\WEB-INF
+	ㅇ WEB-INF 폴더에 classes 폴더 생성	 :  c:\edu\WEB-INF\classes
+	ㅇ web.xml 파일 만들기 : WEB-INF 폴더에...
+	     ==> 실습에서는 만들기 않고
+	     ==> [TOMCAT_HOME]\webapps\ROOT\WEB-INF 폴더에 
+	             존재하는 web.xml을 copy 후 아래와 같이 수정하자 
+
+=============================   아    래     ================================
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+  version="3.0"
+  metadata-complete="true">
+
+</web-app>
+=======================================================================
+
+2. 새로 생성한 edu Web Application  Tomcat 환경파일 server.xml 등록
+	==> [TOMCAT_HOME]\conf\server.xml의 163 line 아래와 추가
+	==> 추가된 부분(edu Web Application 등록)
+          <Context path="/edu" docBase="c:/edu" debug="0" reloadable="true" />
+
+
+3. edu Web Application  Tomcat WAS 등록 확인 
+	
+	ㅇ examples Web Application 에 copy 한 
+		- tomcatGreeting.html, firstJSP.jsp를  c:\edu에 copy
+		- FirstServlet.class를 c:\edu\WEB-INF\classes에 copy
+	
+	ㅇ tomcat  shut-down 후 다시 구동시킨후
+		browser 에서
+		http://127.0.0.1:8080/edu/tomcatGreeting.html
+		http://127.0.0.1:8080/edu/firstJSP.jsp
+
+	ㅇ servlet 접근 URI web.xml 에 등록
+	    c:\edu\WEB-INF 폴더의 내부에 web.xml 화일 아래와 같이 편집
+
+========================   아    래     ===========================
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+  version="3.0"
+  metadata-complete="true">
+
+	<servlet>
+		<servlet-name>FirstServlet</servlet-name>
+		<servlet-class>FirstServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>FirstServlet</servlet-name>
+		<url-pattern>/FirstServlet</url-pattern>
+	</servlet-mapping>
+
+	<!-- http://ip/port/edu/FirstServlet -->
+
+</web-app>
+=============================================================
+
+	ㅇ Tomcat  shut-down 후 다시 구동시킨후
+		browser 에서
+		http://127.0.0.1:8080/edu/FirstServlet       확인
+
+
+4. http://127.0.0.1:8080/edu  요청시 index 구조  나오게 설정
+	ㅇ [TOMCAT_HOME]/conf/web.xml  112line  true 설정
+		<init-param>
+	            <param-name>listings</param-name>
+	            <param-value>true</param-value>
+		</init-param>
+   ㅇ Tomcat 다시 구동후 http://127.0.0.1:8080/edu  확인
+
+=============================================================
+
+
+**********************************************************************************
+*********************** edu Web Application 생성하기 **********************
+**********************************************************************************
+
+ㅇ web.xml  : web application 환경파일(deployment descriptor)
+
+ㅇ server.xml : tomcat 환경파일
+
+ㅇ 새로운 web Application 생성
+	1. tomcat 환경파일 server.xml 에 새로운 Web Application 등록
+	2. 새로 생성된 Web Application 의 설정은 web.xml 에 기술
+
+
+1.  edu Web Application directory  만들기
+	ㅇ 루트 폴더에 edu 폴더생성			:  c:\edu
+	ㅇ edu 폴더에 WEB-INF 폴더 생성		:  c:\edu\WEB-INF
+	ㅇ WEB-INF 폴더에 classes 폴더 생성	 :  c:\edu\WEB-INF\classes
+	ㅇ web.xml 파일 만들기 : WEB-INF 폴더에...
+	     ==> 실습에서는 만들기 않고
+	     ==> [TOMCAT_HOME]\webapps\ROOT\WEB-INF 폴더에 
+	             존재하는 web.xml을 copy 후 아래와 같이 수정하자 
+
+=============================   아    래     ================================
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+  version="3.0"
+  metadata-complete="true">
+
+</web-app>
+=======================================================================
+
+2. 새로 생성한 edu Web Application  Tomcat 환경파일 server.xml 등록
+	==> [TOMCAT_HOME]\conf\server.xml의 163 line 아래와 추가
+	==> 추가된 부분(edu Web Application 등록)
+          <Context path="/edu" docBase="c:/edu" debug="0" reloadable="true" />
+                      //검색명        //실질적인 경로
+
+
+3. edu Web Application  Tomcat WAS 등록 확인 
+	
+	ㅇ examples Web Application 에 copy 한 
+		- tomcatGreeting.html, firstJSP.jsp를  c:\edu에 copy
+		- FirstServlet.class를 c:\edu\WEB-INF\classes에 copy
+	
+	ㅇ tomcat  shut-down 후 다시 구동시킨후
+		browser 에서
+		http://127.0.0.1:8080/edu/tomcatGreeting.html
+		http://127.0.0.1:8080/edu/firstJSP.jsp
+
+	ㅇ servlet 접근 URI web.xml 에 등록
+	    c:\edu\WEB-INF 폴더의 내부에 web.xml 화일 아래와 같이 편집
+
+========================   아    래     ===========================
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+  version="3.0"
+  metadata-complete="true">
+
+	<servlet>
+		<servlet-name>FirstServlet</servlet-name>
+		<servlet-class>FirstServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>FirstServlet</servlet-name>
+		<url-pattern>/FirstServlet</url-pattern>
+	</servlet-mapping>
+
+	<!-- http://ip/port/edu/FirstServlet -->
+
+</web-app>
+=============================================================
+
+	ㅇ Tomcat  shut-down 후 다시 구동시킨후
+		browser 에서
+		http://127.0.0.1:8080/edu/FirstServlet       확인
+
+
+4. http://127.0.0.1:8080/edu  요청시 index 구조  나오게 설정
+	ㅇ [TOMCAT_HOME]/conf/web.xml  112line  true 설정
+		<init-param>
+	            <param-name>listings</param-name>
+	            <param-value>true</param-value>
+		</init-param>
+   ㅇ Tomcat 다시 구동후 http://127.0.0.1:8080/edu  확인              
+
+
+96. webserver : html, 이미지, css .. :: 정적인 자원
+     servlet / jsp : 동적인 자원
+
+97. was : container
+
+98. java SE : stand alone
+     java EE : server 개념이 들어간 SE
+
+99. 플러그인 : plug in... 필요한 거 모듈 추가
 
 

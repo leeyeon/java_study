@@ -1,0 +1,32 @@
+1번
+
+SELECT
+dep.department_name 이름, MIN(emp.salary) MINSAL, MAX(emp.salary) MAXSAL, ROUND(AVG(emp.salary), 5) AVGSAL
+FROM employees emp, departments dep
+WHERE emp.department_id = dep.department_id
+GROUP BY dep.department_name
+ORDER BY 이름;
+
+2번.
+
+SELECT
+emp.employee_id ,emp.department_id, emp.salary, vt.avg_salary
+FROM employees emp,
+  (SELECT
+  department_id, TRUNC(AVG(salary),0) AS AVG_SALARY
+  FROM employees
+  GROUP BY department_id) vt
+WHERE emp.department_id = vt.department_id
+      AND emp.salary > vt.avg_salary;
+
+3번.
+
+SELECT
+emp.employee_id, vt.department_name , emp.salary, vt.avg_salary
+FROM employees emp, (SELECT
+   dep.department_id, dep.department_name , AVG(emp.salary) AS AVG_SALARY
+   FROM employees emp, departments dep
+   WHERE emp.department_id = dep.department_id
+         AND dep.department_id IN ('30')
+   GROUP BY dep.department_id, dep.department_name ) vt
+WHERE emp.department_id = vt.department_id;

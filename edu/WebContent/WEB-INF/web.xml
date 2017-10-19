@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+  version="3.0"
+  metadata-complete="true">
+   
+   	<servlet>
+		<servlet-name>FirstServlet</servlet-name>
+		<servlet-class>FirstServlet</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>ServletTest</servlet-name>
+		<servlet-class>ServletTest</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>HelloServletService</servlet-name>
+		<servlet-class>HelloServletService</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>HelloServletdoGet</servlet-name>
+		<servlet-class>HelloServletdoGet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>HelloServletdoPost</servlet-name>
+		<servlet-class>HelloServletdoPost</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>GetData</servlet-name>
+		<servlet-class>GetData</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>GetDataKr</servlet-name>
+		<servlet-class>GetDataKr</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>PostData</servlet-name>
+		<servlet-class>PostData</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>PostData</servlet-name>
+		<url-pattern>/PostData</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>GetDataKr</servlet-name>
+		<url-pattern>/GetDataKr</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>GetData</servlet-name>
+		<url-pattern>/GetData</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>HelloServletdoPost</servlet-name>
+		<url-pattern>/HelloServletdoPost</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>HelloServletdoGet</servlet-name>
+		<url-pattern>/HelloServletdoGet</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>HelloServletService</servlet-name>
+		<url-pattern>/HelloServletService</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ServletTest</servlet-name>
+		<url-pattern>/ServletTest</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>FirstServlet</servlet-name>
+		<url-pattern>/FirstServlet</url-pattern>
+	</servlet-mapping>
+
+</web-app>
