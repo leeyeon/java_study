@@ -1,0 +1,13 @@
+- 회원가입 / 내정보보기
+  1.  Business Logic Layer
+       ㅇ UserVO.java 
+       ㅇ UserDAO 
+             public void addUser(UserVO userVO) Method 구현 c
+             public UserVO findUser(String name) Method 구현
+
+       ㅇ DataSource 사용 
+  2. Presentation Layer
+       ㅇ AddUser.java (Servlet/Servlet mapping 하기..)
+       ㅇ FindUser.java (Servlet/Servlet mapping 하기..)
+       ㅇ addUser.html
+       ㅇ findUser.html  

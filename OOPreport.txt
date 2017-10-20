@@ -680,4 +680,93 @@ SELECT * FROM TAB;
 
 99. 플러그인 : plug in... 필요한 거 모듈 추가
 
+100. java.util.Enumeration<java.lang.String> <= getParameterNames() 
+       hasMorElements()
+       nextElement()
 
+
+101. 세개의 컴퓨터 쓰면 : three tear
+      shin client  --   middle wear  ------ pet server
+        browser      논리(성능 좋아야됨)     데이터
+
+ => 
+
+      두 개 컴퓨터 : twe tear
+      pet client ------------------ shin server
+      클라이언트(성능 좋아야됨)
+
+      N 개 컴퓨터 : N tear
+
+102. web client -------------------- static Contents ----------------- Server-side Presentation / Business Logic
+         browser                                web server                                                    servlet container
+                                                                                                                         servlet / JDBC
+
+업무 순서(Business Logic)
+회원가입 => insert
+내 정보 보기 => select
+내 정보 수정 => select(pwd check) -> select(info check) -> update
+                   : select 2번 / update 1번
+
+
+Server-side Presentation / Business Logic 나누는 것 : 2 layer Architecture
+         (servlet)                     (JDBC)
+
+103. meta data : 부수적인 데이타
+      ex) DB.txt (DB 정보)
+
+104. html => form 안의 button 눌렀을 때 동작안하도록 하기
+   1. button 태그를 form 태그 안에서 밖으로 빼놓는다.
+   2. button 태그를 input type="button"으로 바꾼다.
+   3. button 태그 안에 type="button"을 추가한다.
+
+105. DBCP : DataBase Connection Pool
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////  javax.sql.DataSource 등록하기 ////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+1.  javax.sql.DataSource 는 J2SE API 에서  ConnectionPool SPEC. 으로 Vendor 구현
+
+
+2. WAS(Vendor) 가 구현 할 수 있도록 설정
+==> [Tomcat_Home]/webapps/docs/index.html의 documnet참조하면.....
+
+ㅇ server.xml 
+
+		<Context  docBase="~~~~~"   path="~~~~~"  reloadable="true">
+		          <Resource
+		            name="jdbc/ora"
+		            type="javax.sql.DataSource"
+		            driverClassName="oracle.jdbc.driver.OracleDriver"
+		            password="tiger"
+		            maxIdle="10"
+		            maxWait="5000"
+		            validationQuery="select * from tab"
+		            username="scott"
+		            url="jdbc:oracle:thin:@127.0.0.1:1521:xe"
+		            maxActive="100"/>
+		</Context> 
+
+maxWait : -1 이면 무한정 기다리기
+		
+3. WebApplication 설정
+
+==> [Tomcat_Home]/webapps/docs/index.html의 documnet참조하면.....
+
+ㅇ web.xml
+		<resource-ref>
+			<res-ref-name>jdbc/ora</res-ref-name>
+			<res-type>javax.sql.DataSource</res-type>
+			 <res-auth>Container</res-auth>
+		</resource-ref>
+
+4. apache home -> lib 에 ojdbc14.jar 넣어주기.
+    => 왜냐하면, dataSource 쓰려면 tomcat이 driver 필요하잖아????
+     
+///////////////////////////////////////////////////////////////////////////////////////////////////
+	
+106. DAO (DATA ACCESS OBJECT)
+      => CRUD 중심 (creat, read, update, delete)
+
+ 

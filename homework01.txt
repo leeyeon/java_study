@@ -1,0 +1,38 @@
+- 회원가입
+  1.  Business Logic Layer
+       ㅇ UserVO.java 
+       ㅇ UserDAO 
+             public void addUser(UserVO userVO) Method 구현
+       ㅇ OracleConnectionPool / DataSource 사용
+  2. Presentation Layer
+       ㅇ AddUser.java (Servlet/Servlet mapping 하기..)
+       ㅇ addUser.html
+
+
+CREATE TABLE USERS (
+ name 		Varchar2(20) NOT NULL,
+ gender 		Varchar2(10),
+ year 		Varchar2(10),
+ month 		Varchar2(10),
+ day 		Varchar2(10),
+ calender 		Varchar2(10),
+ education 	Varchar2(30),
+ job 		Varchar2(30),
+ position 		Varchar2(30),
+ married 		Varchar2(10),
+ children 		Varchar2(10),
+ telFirst 		Varchar2(10),
+ telSecond 	Varchar2(10),
+ telThird 		Varchar2(10),
+ telCheck 		Varchar2(10),
+ mobileFirst 	Varchar2(10),
+ mobileSecond 	Varchar2(10),
+ mobileThird 	Varchar2(10),
+ mobileCheck 	Varchar2(10),
+ country 		Varchar2(10),
+ address 		Varchar2(50)
+);
+
+
+INSERT INTO (name, gender, year, month, day, calender, education, job, position, married, children, telFirst, telSecond, telThird, telCheck, mobileFirst, mobileSecond, mobileThird, mobileCheck, country, address) 
+VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);
