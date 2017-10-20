@@ -97,6 +97,7 @@ public class UserVO {
 		return user;
 	}
 	
+	/*
 	public UserVO setUser(List<String> user) {
 		
 		UserVO uv = new UserVO();
@@ -112,6 +113,7 @@ public class UserVO {
 		return uv;
 		
 	}
+	*/
 	
 	public String getName() {
 		return name;

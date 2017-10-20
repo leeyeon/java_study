@@ -80,8 +80,7 @@ public class UserDao {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String str = "";
-		UserVO userVO = new UserVO();
+		UserVO userVO = null;
 		
 		try {
 			
@@ -99,19 +98,31 @@ public class UserDao {
 			pstmt.setString(1, name);
 			
 			rs = pstmt.executeQuery();
-			Vector<String> userInfo = new Vector<String>();
 			
 			while(rs.next()) {
 				for(int i = 1; i <=20; i++) {
-					userInfo.add(rs.getString(i));
+					System.out.println("DATA TEST");
 					System.out.print(rs.getString(i)+" : ");
 				}
+				
+				userVO = new UserVO(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),
+									rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10),
+									rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14),rs.getString(15),
+									rs.getString(16),rs.getString(17),rs.getString(18),rs.getString(19),rs.getString(20),
+									rs.getString(21));
+				
 			}
 			
-			
+			return userVO;
 		} catch(Exception e) {
 			e.printStackTrace();
+			return userVO;
 		} finally {
+			try {
+				if(rs != null) rs.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
 			try {
 				if(pstmt != null) pstmt.close();
 			} catch(Exception e) {
@@ -123,8 +134,6 @@ public class UserDao {
 				e.printStackTrace();
 			}
 		}
-		
-		return userVO;
 
 	}
 

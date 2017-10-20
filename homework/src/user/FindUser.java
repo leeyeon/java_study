@@ -27,7 +27,28 @@ public class FindUser extends HttpServlet {
 		
 		String name = ConvertUtil.convertKo(req.getParameter("name"));
 		UserDao userDao = new UserDao();
-		userDao.findUser(name);
+		UserVO user = userDao.findUser(name);
+		
+		String gender = user.getGender();
+		String year = user.getYear();
+		String month = user.getMonth();
+		String day = user.getDay();
+		String calendar = user.getCalender();
+		String education = user.getEducation();
+		String job = user.getJob();
+		String position = user.getPosition();
+		String married = user.getMarried();
+		String children = user.getChildren();
+		String telFirst = user.getTelFirst();
+		String telSecond = user.getTelSecond();
+		String telThird = user.getTelThird();
+		String telCheck = user.getTelCheck();
+		String mobileFirst = user.getMobileFirst();
+		String mobileSecond = user.getMobileSecond();
+		String mobileThird = user.getMobileThird();
+		String mobileCheck = user.getMobileCheck();
+		String country = user.getCountry();
+		String address = user.getAddress();
 		
 		out.println("<html>");
 		out.println("<head></head>");
@@ -52,8 +73,7 @@ public class FindUser extends HttpServlet {
 		out.println("<br>휴대폰: ( " +mobileCheck+" ) "+ mobileFirst + " - " + mobileSecond + " - " + mobileThird);
 		out.println("<br>주소: (" + country + ") " + address);
 		
-		
-		out.println("<p><p><a href='/homwork.html'>뒤로</a>");
+		out.println("<p><p><a href='/findUser.html'>뒤로</a>");
 		out.println("</body>");
 		out.println("</html>");
 		
