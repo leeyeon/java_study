@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Vector;
 
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -98,10 +99,13 @@ public class UserDao {
 			pstmt.setString(1, name);
 			
 			rs = pstmt.executeQuery();
+			Vector<String> userInfo = new Vector<String>();
 			
 			while(rs.next()) {
-				for(int i = 1; i <=20; i++)
+				for(int i = 1; i <=20; i++) {
+					userInfo.add(rs.getString(i));
 					System.out.print(rs.getString(i)+" : ");
+				}
 			}
 			
 			

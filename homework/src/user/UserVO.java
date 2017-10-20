@@ -97,11 +97,19 @@ public class UserVO {
 		return user;
 	}
 	
-	public void setUser(List<String> user) {
+	public UserVO setUser(List<String> user) {
+		
+		UserVO uv = new UserVO();
+		
+		String[] userColumn = new String[]{name, gender, year, month, day, calendar, education,
+				job, position, married, children, telFirst, telSecond,
+				telThird, telCheck, mobileFirst, mobileSecond, mobileThird};
 		
 		for(int i=0; i<user.size(); i++) {
-			
+			 
 		}
+			
+		return uv;
 		
 	}
 	

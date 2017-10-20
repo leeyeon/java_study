@@ -28,7 +28,7 @@ public class FindUser extends HttpServlet {
 		String name = ConvertUtil.convertKo(req.getParameter("name"));
 		UserDao userDao = new UserDao();
 		userDao.findUser(name);
-
+		
 		out.println("<html>");
 		out.println("<head></head>");
 		out.println("<body>");
