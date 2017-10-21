@@ -68,12 +68,12 @@ public class FindUser extends HttpServlet {
 		if("기혼".equals(married))
 			out.println("자녀수: " + children);
 		
-		out.println("<br>연락처: ("+telCheck+") "+ telFirst + " - " + telSecond + " - "+ telThird);
+		out.println("<br>연락처: ( "+telCheck+" ) "+ telFirst + " - " + telSecond + " - "+ telThird);
 		
 		out.println("<br>휴대폰: ( " +mobileCheck+" ) "+ mobileFirst + " - " + mobileSecond + " - " + mobileThird);
-		out.println("<br>주소: (" + country + ") " + address);
+		out.println("<br>주소: ( " + country + " ) " + address);
 		
-		out.println("<p><p><a href='/findUser.html'>뒤로</a>");
+		out.println("<p><p><a href='findUser.html'>뒤로</a>");
 		out.println("</body>");
 		out.println("</html>");
 		

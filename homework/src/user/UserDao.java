@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 
 public class UserDao {
 	
-	int isSuccess;
+	private int isSuccess;
 
 	public UserDao() {
 		// TODO Auto-generated constructor stub
@@ -100,8 +100,8 @@ public class UserDao {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
+				System.out.println("<<<SELECT TEST>>>");
 				for(int i = 1; i <=20; i++) {
-					System.out.println("DATA TEST");
 					System.out.print(rs.getString(i)+" : ");
 				}
 				
@@ -110,7 +110,6 @@ public class UserDao {
 									rs.getString(11),rs.getString(12),rs.getString(13),rs.getString(14),rs.getString(15),
 									rs.getString(16),rs.getString(17),rs.getString(18),rs.getString(19),rs.getString(20),
 									rs.getString(21));
-				
 			}
 			
 			return userVO;

@@ -24,9 +24,7 @@ public class AddUser extends HttpServlet {
 		UserVO user = new UserVO();
 		
 		String name = req.getParameter("name");
-		String gender = "남자";
-		if(Boolean.parseBoolean(req.getParameter("gender")))
-			gender = "여자";
+		String gender = req.getParameter("gender");
 		String year = req.getParameter("year");
 		String month = req.getParameter("month");
 		String day = req.getParameter("day");
