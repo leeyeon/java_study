@@ -7,8 +7,8 @@ import java.sql.ResultSet;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import Util.DBUtil;
 import jw.common.pool.OracleConnectionPool;
+import jw.common.util.DBUtil;
 
 public class UserDataSourceDao {
 

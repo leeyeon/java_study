@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Util.DBUtil;
+import jw.common.util.DBUtil;
 
 /**
  * Servlet implementation class Login
@@ -38,7 +38,7 @@ public class Login extends HttpServlet {
 		
 		try {
 			
-			Connection con = DBUtil.connect();
+			Connection con = DBUtil.getConnection();
 			
 			String query = "SELECT id, pwd FROM users WHERE id=?";
 			PreparedStatement pstmt = con.prepareStatement(query);

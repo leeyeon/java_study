@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import Util.DBUtil;
+import jw.common.util.DBUtil;
 
 public class DbBean {
 
@@ -30,7 +30,7 @@ public class DbBean {
 		
 		try {
 			
-			con = DBUtil.connect();
+			con = DBUtil.getConnection();
 			
 			String query = "SELECT id, pwd FROM users WHERE id=?";
 			pstmt = con.prepareStatement(query);

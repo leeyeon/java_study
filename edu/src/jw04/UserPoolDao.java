@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import Util.DBUtil;
 import jw.common.pool.OracleConnectionPool;
+import jw.common.util.DBUtil;
 
 public class UserPoolDao {
 

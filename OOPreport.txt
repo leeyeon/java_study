@@ -769,4 +769,219 @@ maxWait : -1 이면 무한정 기다리기
 106. DAO (DATA ACCESS OBJECT)
       => CRUD 중심 (creat, read, update, delete)
 
- 
+
+107. 404 에러 = page를 찾을 수 없음
+
+ (1) 내 project - web.xml mapping 잘 되어있는지 확인
+
+ (2) server - servers.xml - context 정의 되어있는지 확인
+
+ (3) server - web.xml - listings 의 value 가 true 인지 확인
+
+    <servlet>
+        <servlet-name>default</servlet-name>
+        <servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>0</param-value>
+        </init-param>
+        <init-param>
+            <param-name>listings</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+
+listings => param-value true!!
+
+108. marker interface : 오버라이딩 할 것이 없는 interface
+      ex) singltThreadModel...
+     WAS가 저 인터페이스가 있는 걸 마킹 => 인스턴스를 만듬 ...=> 자바의 장점을 포기
+
+109. web.xml -> metadata
+     여기에 선언적 예외처리를 지정해놓으면 was가 알아서 처리해줌.
+     throws 가 container로 보내니까
+
+110. closs browsing
+     브라우저별로 세팅이 다르기 때문에, 브라우저별로 다르게 대응하는 법
+html, css, 그리고 javascript 작성시 W3C 의 web standard (웹규격) 에 맞는 코딩을 함으로써 어느 브라우져에서나 기기에서 사이트가 제대로 보여지고 작동되도록 하는 기법
+
+     => http://caniuse.com/  Can I USE 홈페이지에서 내가 쓰고 싶은 css나 javascript를 넣으면 작동되는지 아닌지 알려줌.
+
+111. model 1 web architecture : jsp(Presentation) + bean(Business Logic)
+     model 2 web architecture : bean(M) + jsp(V) + servlet(C) ( 2 Layor Architecture + MVC )
+
+112. 내장객체 : java가 자동으로 만들어주는 객체
+
+113. 한글 변환....
+     <%@ page contentType="text/html; charset=euc-kr" %>
+
+114. jsp : C:\apache-tomcat\work\Catalina\localhost\edu\org\apache\jsp
+         html 안에 java코드
+     Servlet : 직접 java를 만듬
+         java 안에 html코드
+
+115.
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.jsp.*;
+
+jsp는 위 클래스를 기본으로 import 한다. => tmp 파일 확인해보면 있다
+
+116. eclipse .java (temp... jsp 실행시 java 파일 생성되는 곳) 위치
+C:\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\work\Catalina\localhost\edu\org\apache\jsp\jw06
+(밑은 서버에 바로 생기는 tmp 파일)
+C:\apache-tomcat\work\Catalina\localhost\edu\org\apache\jsp
+117. jspf : 모듈화한 페이지 가독성 좋게 표시함
+
+118. MVC : model과 view 를 컨트롤 , 전산의 기본 구조
+     - Model : 뷰와 컨트롤러 사이에서 전달되는 데이터만을 기지고 있는거 VO //
+                    아니면 데이터에 대한 작업에 대한 규칙..? DAO
+     - View : 사용자 눈에 보여지는 부분 // 사용자 인터페이스로 Model에 의해 업데이트됨.
+     - Controller : 뷰와 모델을 연결시켜주고.. 모델 조작이나 데이터 흐름 제어 // 직접 view를 업데이트 하지 않는다.
+                        javaCode , M/V connect(object scopt), navigation(제어권 넘기기)
+
+ 동사무소 : 접수-> 데이터 처리->내보내기
+
+
+119. DTO ( Data Transfer Object ) = VO ( Value Object) 와 같은 개념.
+      DAO ( Data Access Object )
+
+120. object scopt : get&set Attribute
+                          뭔가 데이터를 빼오고 가져오는 것
+      session / request / application
+
+121. application scopt : tomcat memory... 동기화문제 발생할 수 있음
+
+122. 제어권 넘기기 = navigation
+      (1) <jsp:forward ~ />
+ request a.jsp => response b.jsp
+
+	// 방어적 코딩 / WorkFlow control => url 안바뀜
+	<% if(request.getMethod().equals("GET")) { %>
+		<jsp:forward page="login.html"/>
+	<% } %>
+
+      (2 )response.sendRedirect(path)
+ request a.jsp => response a.jsp => request b.jsp => reponse b.jsp
+
+	// 방어적 코딩 /  WorkFlow Control => rul 바뀜
+	if( request.getMethod().equals("GET") ){
+		response.sendRedirect("addUser.html");
+		return;
+	 }
+
+123. include
+두 가지의 방법이 있는데, 진행순서는 비슷하지만 파일을 include하는 방식이 다르다.
+별개의 파일을 연결만 해주는 것과 include해야할 파일을 직접 넣어주는 것. (JC 가 만든 .java를 보면 확연히 차이가 남.)
+     (1) <jsp:include page ~ >
+            <jsp:param name = "" value = "" />
+         </jsp:include>
+
+request A.jsp -> B.jsp로 이동해서 주루룩 진행 -> response A.jsp
+request scopt을 이용하여,, request.getParameter // request.getAttribute 로 값을 불러올 수 있음.
+
+     (2) <%@include file ~ %>
+request A.jsp -> A.jsp 안에 B.jsp (or txt...) 를 집어넣고 주루룩 진행 -> response B.jsp
+지역변수를 사용해서 써도 된다. 왜냐면 포함되어 있으니까~
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////  javascript 정리 ///////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+- 변수 : var (변수 선언시 모두 var 만 쓰면 됩니당)
+- alert(~~) : 경고창 띄우는거 디버깅할 때 쓰기 좋음
+- 주석 : /* */
+- 비교연산자
+  == / != :  값 비교
+  === / !== : 값과 데이터형 비교
+
+- false로 간주되는 데이터형
+ (1) '' : 빈 문자열
+ (2) undefined : undefined
+                  데이터형이 정의 되지 않은 것. null이 아니다.
+ (3) null : null
+ (4) NaN : Not a Number ( 숫자가 아닌 것)
+      "1000" + "1000" = 10001000
+      내가 원하는 건 숫자 더하는건데 
+      => 왜 이런 에러가 나오는지? :: 문자열을 합쳤기 때문임. 고로, 형변환을 해야되.
+      
+      parseInt("1000") + parseInt("1000") = 2000
+
+      => 숫자인지 아닌지 확인하는 방법 : isNaN("확인할 변수명")
+
+ var a; a : 초기화하지 않은 변수
+
+- function 함수
+(1) 함수 정의법 1 => 함수를 함수 자체로 불러서 쓸때
+    밑에 인자 return 은 모두 생략되어 표기했지만 사용할 수 있는것임
+    function 함수명 ( [인자 [,인자]] ) {
+           code
+    [return 반환값;]
+    }
+
+(2) 함수 정의법 2 => 함수를 변수로 지정하여 쓸떄
+   var 변수명 = function ( [인자 [.인자]] ) {
+
+  };
+
+(3) 함수 정의법 3 => 즉시 실행할 때 함수명 지정
+    (function 함수명() {
+
+    }() );
+
+(4) 함수 정의법 4 => 즉시 실행할 때 함수명 필요없어
+    (function() {
+
+    }() );
+
+
+- 배열
+
+var li = {'a', 'b', 'c', 'd', 'e'};
+
+li.push('f');	맨 마지막에 넣기
+li = li.concat(['f', 'g']); 복수 요소 넣을 때
+li.unshift('z');	시작점에 넣기
+li.splice(2, 0, 'B');	2번째부터 0개 요소 삭제하고 'B' 넣기
+		=> 반환값 : 삭제된 요소
+		=> li는 삭제하고 무언갈 넣은 것이 남은 배열
+li.shift();		첫번째 요소 지우기
+li.pop();		맨 마지막 지우기
+li.sort();		정렬
+li.reverse();	역순 정렬
+
+********** 중요 !!! 이벤트 다루는 법 *******
+
+1) HTML에 inline으로 등록
+<div onclick="alert('clicked!');">Click me!</div>
+
+
+2) element의 onload 속성을 통한 등록
+<div id="domId">Click me!</div>
+<script>
+var element = document.getElementById("domId");
+element.onclick = function () {
+    alert("clicked!");
+}
+</script>
+3) addEventListener/attachEvent를 이용한 등록
+<div id="domId">Click me!</div>
+<script>
+var element = document.getElementById("domId");
+element.addEventListener("click", function () {
+    alert("clicked!");
+}, false);
+</script>
+
+
+출처: http://unikys.tistory.com/312 [All-round programmer]

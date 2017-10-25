@@ -9,7 +9,7 @@
        ¤· addUser.html
 
 
-CREATE TABLE USERS (
+CREATE TABLE user_info (
  name 		Varchar2(20) NOT NULL,
  gender 		Varchar2(10),
  year 		Varchar2(10),
@@ -34,5 +34,5 @@ CREATE TABLE USERS (
 );
 
 
-INSERT INTO (name, gender, year, month, day, calender, education, job, position, married, children, telFirst, telSecond, telThird, telCheck, mobileFirst, mobileSecond, mobileThird, mobileCheck, country, address) 
+INSERT INTO user_info (name, gender, year, month, day, calender, education, job, position, married, children, telFirst, telSecond, telThird, telCheck, mobileFirst, mobileSecond, mobileThird, mobileCheck, country, address) 
 VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);

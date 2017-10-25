@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import Util.DBUtil;
+import jw.common.util.DBUtil;
 
 public class UserInitParamDao {
 	

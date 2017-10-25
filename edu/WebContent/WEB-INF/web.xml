@@ -1,32 +1,29 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" metadata-complete="true" version="3.0">
   <servlet>
-  	<servlet-name>LoginBeanInitParam</servlet-name>
-  	<servlet-class>jw04.LoginBeanInitParam</servlet-class>
-  	<init-param>
-  		<param-name>jdbcDriver</param-name>
-  		<param-value>oracle.jdbc.driver.OracleDriver</param-value>
-  	</init-param>
-  	  	<init-param>
-  		<param-name>jdbcURL</param-name>
-  		<param-value>jdbc:oracle:thin:@127.0.0.1:1521:xe</param-value>
-  	</init-param>
-  	  	<init-param>
-  		<param-name>jdbcUser</param-name>
-  		<param-value>scott</param-value>
-  	</init-param>
-  	  	<init-param>
-  		<param-name>jdbcPasswd</param-name>
-  		<param-value>tiger</param-value>
-  	</init-param>
+    <servlet-name>LoginBeanInitParam</servlet-name>
+    <servlet-class>jw04.LoginBeanInitParam</servlet-class>
+    <init-param>
+      <param-name>jdbcDriver</param-name>
+      <param-value>oracle.jdbc.driver.OracleDriver</param-value>
+    </init-param>
+    <init-param>
+      <param-name>jdbcURL</param-name>
+      <param-value>jdbc:oracle:thin:@127.0.0.1:1521:xe</param-value>
+    </init-param>
+    <init-param>
+      <param-name>jdbcUser</param-name>
+      <param-value>scott</param-value>
+    </init-param>
+    <init-param>
+      <param-name>jdbcPasswd</param-name>
+      <param-value>tiger</param-value>
+    </init-param>
   </servlet>
-  
   <servlet-mapping>
     <servlet-name>LoginBeanInitParam</servlet-name>
     <url-pattern>/LoginBeanInitParam</url-pattern>
   </servlet-mapping>
-  
-  
   <servlet>
     <servlet-name>FirstServlet</servlet-name>
     <servlet-class>FirstServlet</servlet-class>
@@ -123,7 +120,6 @@
     <servlet-name>MultiCheck03</servlet-name>
     <url-pattern>/MultiCheck03</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>Login</servlet-name>
     <servlet-class>jw04.Login</servlet-class>
@@ -132,7 +128,6 @@
     <servlet-name>Login</servlet-name>
     <url-pattern>/Login</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>LoginBean</servlet-name>
     <servlet-class>jw04.LoginBean</servlet-class>
@@ -141,8 +136,7 @@
     <servlet-name>LoginBean</servlet-name>
     <url-pattern>/LoginBean</url-pattern>
   </servlet-mapping>
-  
-   <servlet>
+  <servlet>
     <servlet-name>LoginBeanVODao</servlet-name>
     <servlet-class>jw04.LoginBeanVODao</servlet-class>
   </servlet>
@@ -150,7 +144,6 @@
     <servlet-name>LoginBeanVODao</servlet-name>
     <url-pattern>/LoginBeanVODao</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>LoginBeanPool</servlet-name>
     <servlet-class>jw04.LoginBeanPool</servlet-class>
@@ -159,8 +152,7 @@
     <servlet-name>LoginBeanPool</servlet-name>
     <url-pattern>/LoginBeanPool</url-pattern>
   </servlet-mapping>
-  
-    <servlet>
+  <servlet>
     <servlet-name>LoginBeanDataSource</servlet-name>
     <servlet-class>jw04.LoginBeanDataSource</servlet-class>
   </servlet>
@@ -168,11 +160,86 @@
     <servlet-name>LoginBeanDataSource</servlet-name>
     <url-pattern>/LoginBeanDataSource</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>CookieWriterToClient</servlet-name>
+    <servlet-class>jw05.CookieWriterToClient</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CookieWriterToClient</servlet-name>
+    <url-pattern>/CookieWriterToClient</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>CookieReaderToServer</servlet-name>
+    <servlet-class>jw05.CookieReaderToServer</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CookieReaderToServer</servlet-name>
+    <url-pattern>/CookieReaderToServer</url-pattern>
+  </servlet-mapping>
   
+  <servlet>
+    <servlet-name>SessionUserCookieOne</servlet-name>
+    <servlet-class>jw05.SessionUserCookieOne</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SessionUserCookieOne</servlet-name>
+    <url-pattern>/SessionUserCookieOne</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>SessionUserCookieTwo</servlet-name>
+    <servlet-class>jw05.SessionUserCookieTwo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SessionUserCookieTwo</servlet-name>
+    <url-pattern>/SessionUserCookieTwo</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>LoginBeanDataSourceSession</servlet-name>
+    <servlet-class>jw05.LoginBeanDataSourceSession</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginBeanDataSourceSession</servlet-name>
+    <url-pattern>/LoginBeanDataSourceSession</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>Make405Error</servlet-name>
+    <servlet-class>jw05.Make405Error</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Make405Error</servlet-name>
+    <url-pattern>/Make405Error</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>MakeNullPointerException</servlet-name>
+    <servlet-class>jw05.MakeNullPointerException</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MakeNullPointerException</servlet-name>
+    <url-pattern>/MakeNullPointerException</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>NullErrorDisplay</servlet-name>
+    <servlet-class>jw05.NullErrorDisplay</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NullErrorDisplay</servlet-name>
+    <url-pattern>/NullErrorDisplay</url-pattern>
+  </servlet-mapping>  
+  
+  <error-page>
+  	<error-code>405</error-code>
+  	<location>/jw05/405ErrorDisplay.html</location>
+  </error-page>
+  
+  <error-page>
+  	<exception-type>java.lang.Exception</exception-type>
+  	<location>/NullErrorDisplay</location>
+  </error-page>
+  <!-- DataSourse definition -->
   <resource-ref>
     <res-ref-name>jdbc/ora</res-ref-name>
     <res-type>javax.sql.DataSource</res-type>
     <res-auth>Container</res-auth>
   </resource-ref>
-  
 </web-app>

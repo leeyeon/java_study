@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import Util.DBUtil;
+import jw.common.util.DBUtil;
 
 public class UserDao {
 
@@ -20,7 +20,7 @@ public class UserDao {
 		
 		try {
 			
-			con = DBUtil.connect();
+			con = DBUtil.getConnection();
 			
 			String query = "SELECT id, pwd FROM users WHERE id=? AND pwd=?";
 			pstmt = con.prepareStatement(query);

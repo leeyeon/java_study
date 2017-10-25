@@ -35,7 +35,6 @@
 <fullyQualifiedTypeName name="java.sql.DriverManager"/>
 <fullyQualifiedTypeName name="jw04.UserInitParamDao"/>
 <fullyQualifiedTypeName name="jw.common.pool.OracleConnectionPool"/>
-<fullyQualifiedTypeName name="jw04.UserDataSourceDao"/>
 <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
 <fullyQualifiedTypeName name="java.sql.ResultSet"/>
 <fullyQualifiedTypeName name="javax.naming.InitialContext"/>
@@ -43,4 +42,10 @@
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="Util.ConvertUtil"/>
 <fullyQualifiedTypeName name="java.util.Vector"/>
+<fullyQualifiedTypeName name="java.net.URLEncoder"/>
+<fullyQualifiedTypeName name="org.apache.tomcat.util.http.Cookies"/>
+<fullyQualifiedTypeName name="javax.servlet.http.Cookie"/>
+<fullyQualifiedTypeName name="jw04.UserVO"/>
+<fullyQualifiedTypeName name="jw04.UserDataSourceDao"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
 </qualifiedTypeNameHistroy>
