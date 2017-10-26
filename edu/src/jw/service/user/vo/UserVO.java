@@ -22,6 +22,11 @@ public class UserVO {
 		this.pwd = pwd;
 	}
 	
+	public UserVO(String id, String pwd, int no) {
+		this(id, pwd);
+		this.no = no;
+	}
+
 	///Method
 	//getter/setter Method
 	public String getId() {

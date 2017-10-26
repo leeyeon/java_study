@@ -126,33 +126,9 @@
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log." suffix=".txt"/>
 			
 
-      <Context docBase="homework" path="/homework" reloadable="true" source="org.eclipse.jst.jee.server:homework">
-       <Resource
-		            name="jdbc/ora"
-		            type="javax.sql.DataSource"
-		            driverClassName="oracle.jdbc.driver.OracleDriver"
-		            password="tiger"
-		            maxIdle="10"
-		            maxWait="5000"
-		            validationQuery="select * from tab"
-		            username="scott"
-		            url="jdbc:oracle:thin:@127.0.0.1:1521:xe"
-		            maxActive="100"/>
-      </Context>
-      <Context docBase="edu" path="/edu" reloadable="true" source="org.eclipse.jst.jee.server:edu">
-       <Resource
-		            name="jdbc/ora"
-		            type="javax.sql.DataSource"
-		            driverClassName="oracle.jdbc.driver.OracleDriver"
-		            password="tiger"
-		            maxIdle="10"
-		            maxWait="5000"
-		            validationQuery="select * from tab"
-		            username="scott"
-		            url="jdbc:oracle:thin:@127.0.0.1:1521:xe"
-		            maxActive="100"/>
-		            </Context>
-      </Host>
+      
+      
+      <Context docBase="012model2" path="/012model2" reloadable="true" source="org.eclipse.jst.jee.server:012model2"/></Host>
     </Engine>
   </Service>
 </Server>

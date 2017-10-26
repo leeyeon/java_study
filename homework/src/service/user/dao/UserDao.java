@@ -28,11 +28,14 @@ public class UserDao extends AbstractDao {
 			
 			con = this.connect();
 			
-			pstmt = con.prepareStatement("INSERT INTO USER_INFO (name, gender, year, month, day, "
-					+ "calender, education, job, position, married, children, "
-					+ "telFirst, telSecond, telThird, telCheck, "
-					+ "mobileFirst, mobileSecond, mobileThird, mobileCheck, country, address)" 
-					+ " VALUES(?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?, ?)");
+			StringBuffer query = new StringBuffer();
+			query.append("INSERT INTO USER_INFO (name, gender, year, month, day, ");
+			query.append("calender, education, job, position, married, children, ");
+			query.append("telFirst, telSecond, telThird, telCheck, ");
+			query.append("mobileFirst, mobileSecond, mobileThird, mobileCheck, country, address)");
+			query.append(" VALUES(?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,?, ?)");
+			
+			pstmt = con.prepareStatement(query.toString());
 			
 			user = userVO.getUser();
 			
@@ -75,12 +78,15 @@ public class UserDao extends AbstractDao {
 			
 			con = this.connect();
 			
-			pstmt = con.prepareStatement("SELECT name, gender, year, month, day, "
-					+ "calender, education, job, position, married, children, "
-					+ "telFirst, telSecond, telThird, telCheck, "
-					+ "mobileFirst, mobileSecond, mobileThird, mobileCheck, country, address" 
-					+ " FROM USER_INFO"
-					+ " WHERE name = ?");
+			StringBuffer query = new StringBuffer();
+			query.append("SELECT name, gender, year, month, day, ");
+			query.append("calender, education, job, position, married, children, ");
+			query.append("telFirst, telSecond, telThird, telCheck, ");
+			query.append("mobileFirst, mobileSecond, mobileThird, mobileCheck, country, address");
+			query.append(" FROM USER_INFO");
+			query.append(" WHERE name = ?");
+			
+			pstmt = con.prepareStatement(query.toString());
 			
 			pstmt.setString(1, name);
 			
@@ -116,12 +122,15 @@ public class UserDao extends AbstractDao {
 			
 			con = this.connect();
 			
-			pstmt = con.prepareStatement(" UPDATE USER_INFO "
-					+ " SET gender = ?, year = ?, month = ?, day = ?, " 
-					+ "calender = ?, education = ?, job = ?, position = ?, married = ?, children = ?, "
-					+ "telFirst = ?, telSecond = ?, telThird = ?, telCheck = ?, "
-					+ "mobileFirst = ?, mobileSecond = ?, mobileThird = ?, mobileCheck = ?, country = ?, address = ?"
-					+ " WHERE name = ?");
+			StringBuffer query = new StringBuffer();
+			query.append("UPDATE USER_INFO ");
+			query.append(" SET gender = ?, year = ?, month = ?, day = ?, ");
+			query.append("calender = ?, education = ?, job = ?, position = ?, married = ?, children = ?, ");
+			query.append("telFirst = ?, telSecond = ?, telThird = ?, telCheck = ?, ");
+			query.append("mobileFirst = ?, mobileSecond = ?, mobileThird = ?, mobileCheck = ?, country = ?, address = ?");
+			query.append(" WHERE name = ?");
+			
+			pstmt = con.prepareStatement(query.toString());
 			
 			user = userVO.getUser();
 			

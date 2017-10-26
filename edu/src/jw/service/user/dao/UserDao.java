@@ -3,6 +3,8 @@ package jw.service.user.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import jw.common.dao.AbstractDao;
 import jw.service.user.vo.UserVO;
@@ -58,8 +60,8 @@ public class  UserDao extends AbstractDao{
 			
 			//2´Ü°è statement 
 			pStmt = con.prepareStatement(	"INSERT " +
-																		"INTO users ( no, id, pwd) " +
-																		"VALUES( ? , ? , ? )" );
+											"INTO users ( no, id, pwd) " +
+											"VALUES( ? , ? , ? )" );
 			pStmt.setInt(1,userVO.getNo());
 			pStmt.setString(2,userVO.getId());
 			pStmt.setString(3,userVO.getPwd());
@@ -75,4 +77,36 @@ public class  UserDao extends AbstractDao{
 		}
 		return insertResult; 
 	}//end of addUser()
+	
+	public List<UserVO> getUserList() {
+		
+		ArrayList<UserVO> arrayList = new ArrayList<UserVO>();
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			con = this.connect();
+			
+			pstmt = con.prepareStatement("SELECT no, id, pwd FROM users ORDER BY no");
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				UserVO userVO = new UserVO(rs.getString("id"),rs.getString("pwd"),rs.getInt("no"));
+				System.out.println(userVO);
+				arrayList.add(userVO);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			this.close(con, pstmt, rs);
+		}
+		
+		return arrayList;
+		
+	}
 }

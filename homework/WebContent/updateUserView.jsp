@@ -15,18 +15,6 @@
 <html lang="ko">
 <head><title>Client/Server Relation</title>
 
-<script type="text/javascript">
-
-function checkInfo(form) {
-	var name = form.name.value;
-	if(name=='') {
-		alert('이름을 입력해주세요.');
-		return false;
-	}
-}
-
-</script>
-
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
@@ -99,7 +87,7 @@ select {
 		<h2>내 정보 수정</h2>
 		<hr width="800px">
 	
-		<form name ="frm" action="updateUser.jsp" method="POST"  onSubmit='return checkInfo(this)'>
+		<form name ="frm" action="updateUser.jsp" method="POST">
 			<table class="informaion_table" colspan="4">
 	
 				<tr>
@@ -123,6 +111,7 @@ select {
 					<th>* 생년월일</th>
 					<td colspan="3">
 						<input type="text" name="year" value="<%=userVO.getYear() %>"/>&nbsp;년
+
 						<select name="month">
 							<option value='' selected>선택</option>
 							<% for(int i=1; i<=12; i++) {%>
@@ -146,13 +135,16 @@ select {
 	
 				<tr>
 					<th>* 최종학력</th>
+					<%
+						String[] edu = new String[] {"선택하세요.","초등학교", "중학교", "고등학교", "대학교"};
+					%>
 					<td colspan="3">
-						<select name= "education"  style="width: 150px" >
-							<option value='' selected>선택하세요.</option>
-							<option value='초등학교'>초등학교</option>
-							<option value='중학교'>중학교</option>
-							<option value='고등학교'>고등학교</option>
-							<option value='대학교'>대학교</option>
+						<select name= "education"  id="education" style="width: 150px" >
+						<% for(int i=0; i<edu.length; i++) { %>
+							<option value="<%= edu[i] %>"
+								<%= (edu[i].equals(userVO.getEducation()))? "selected":""%>>
+								<%= edu[i] %> </option>
+						<% } %>
 						</select>
 					</td>
 				</tr>
@@ -160,13 +152,15 @@ select {
 				<tr>
 					<th>* 직업</th>
 					<td>
-						<select name="job" style="width: 150px">
-							<option value=''>선택하세요.</option>
-							<option value='학생'>학생</option>
-							<option value='교직'>교직</option>
-							<option value='공무원'>공무원</option>
-							<option value='전문직'>전문직</option>
-							<option value='무직'>무직</option>
+					<%
+						String[] job = new String[] {"선택하세요.","학생", "교직", "공무원", "전문직","무직"};
+					%>
+						<select name="job" id="job" style="width: 150px">
+						<% for(int i=0; i<job.length; i++) { %>
+							<option value="<%= job[i] %>"
+								<%= (job[i].equals(userVO.getJob()))? "selected":""%>>
+								<%= job[i] %> </option>
+						<% } %>
 						</select>
 					</td>
 	
@@ -250,8 +244,3 @@ select {
 </body>
 </html>
 
-<script type="text/javascript">
-
-document.frm.education.value="학생";
-
-</script>
