@@ -1,0 +1,67 @@
+<<<<<<<<<<<  Sequence >>>>>>>>>>>
+
+1. 자동으로  Unique number 생성
+2. 공유가능한 Object
+3. 일반적으로 Primary key값을 생성키 위해 사용
+
+[ Syntax ]
+CREATE SEQUENCE seq_tablename_fieldname
+	increment by n						<== 증가값 (default 1)
+	start with n								<== 시작값 (default 1)
+	maxvalue n | nomaxvalue	<== 최고값 (nomaxvalue default 10*E27)
+	minvalue n | nominvalue		<== 최소값 (nominvalue default 1)
+	cycle | nocycle						<== 최소,최고값이후 값의 생성유무 (default nocycle)
+	cache | nocache						<== 메모리에 유지할 값의 수 (default 20)
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+<<<<<<     실     습 1 ::  sequence default생성     >>>>>>
+1. sequence test용 table생성
+
+CREATE TABLE test01(
+	no 				NUMBER PRIMARY KEY,
+	remark 		VARCHAR2(10)
+);
+
+
+2. default 로 sequence 생성
+CREATE SEQUENCE seq_test01_no;
+
+
+3.seq_test01 table 에 값 insert 후 확인하기
+INSERT INTO test01(no,remark)
+VALUES(seq_test01_no.NEXTVAL,'연습1');
+
+//=> table에서 확인
+SELECT no,remark FROM test01;
+
+//=> 반복 실행하면
+INSERT INTO test01(no,remark)
+VALUES(seq_test01_no.NEXTVAL,'연습2');
+
+SELECT no,remark FROM test01;
+
+
+4. 다른 방법으로 sequnce 확인하기
+
+//==> 현재의 sequence value 확인
+SELECT seq_test01_no.CURRVAL FROM DUAL;
+
+//==> 다음의 sequence value 확인
+SELECT seq_test01_no.NEXTVAL FROM DUAL;
+
+//==>확인하면
+INSERT INTO test01(no,remark)
+VALUES(seq_test01_no.NEXTVAL,'연습3');
+
+SELECT no,remark FROM test01;
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+<<<<<<     실     습  2 :: sequence의 삭제 및 변경   >>>>>>
+
+[Syntax]
+DROP SEQUENCE sequence_name;
+
+DROP SEQUENCE seq_test01_no;

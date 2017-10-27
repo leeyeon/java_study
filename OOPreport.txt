@@ -840,7 +840,7 @@ C:\apache-tomcat\work\Catalina\localhost\edu\org\apache\jsp
                     아니면 데이터에 대한 작업에 대한 규칙..? DAO
      - View : 사용자 눈에 보여지는 부분 // 사용자 인터페이스로 Model에 의해 업데이트됨.
      - Controller : 뷰와 모델을 연결시켜주고.. 모델 조작이나 데이터 흐름 제어 // 직접 view를 업데이트 하지 않는다.
-                        javaCode , M/V connect(object scopt), navigation(제어권 넘기기)
+                        javaCode , M/V connect(object scope), navigation(제어권 넘기기)
 
  동사무소 : 접수-> 데이터 처리->내보내기
 
@@ -849,11 +849,11 @@ C:\apache-tomcat\work\Catalina\localhost\edu\org\apache\jsp
                                                    => layor 와 layor 간에 데이터 교환 테크닉
       DAO ( Data Access Object )
 
-120. object scopt : get&set Attribute
+120. object scope : get&set Attribute
                           뭔가 데이터를 빼오고 가져오는 것
       session / request / application
 
-121. application scopt : tomcat memory... 동기화문제 발생할 수 있음
+121. application scope : tomcat memory... 동기화문제 발생할 수 있음
 
 122. 제어권 넘기기 = navigation
       (1) <jsp:forward ~ />
@@ -881,7 +881,7 @@ C:\apache-tomcat\work\Catalina\localhost\edu\org\apache\jsp
          </jsp:include>
 
 request A.jsp -> B.jsp로 이동해서 주루룩 진행 -> response A.jsp
-request scopt을 이용하여,, request.getParameter // request.getAttribute 로 값을 불러올 수 있음.
+request scope을 이용하여,, request.getParameter // request.getAttribute 로 값을 불러올 수 있음.
 
      (2) <%@include file ~ %>
 request A.jsp -> A.jsp 안에 B.jsp (or txt...) 를 집어넣고 주루룩 진행 -> response B.jsp

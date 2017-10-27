@@ -11,7 +11,7 @@
 	<servlet-class>spring.model2.control.ControlServlet</servlet-class>
 	
 	<!-- WAS 구동시 Servlet loading -->
-	<!-- <load-on-startup>1</load-on-startup> -->
+	<load-on-startup>1</load-on-startup>
 </servlet>
 
 <servlet-mapping>
